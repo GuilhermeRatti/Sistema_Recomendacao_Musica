@@ -5,12 +5,17 @@ typedef struct
 {
     float danceability;
     float energy;
-    float mode;
+    int key;
+    float loudness;
+    int mode;
     float speechiness;
     float acousticness;
     float instrumentalness;
     float liveness;
     float valence;
+    float tempo;
+    int time_signature;
+    
 } PROPRIEDADES;
 
 
