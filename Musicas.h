@@ -4,7 +4,7 @@
 #include "Propriedades.h"
 
 typedef struct
-{
+{                              
     char id[23];               // O id sao 22 caracteres + \0
     char *nome;                // Alocacao dinamica
     int popularidade;          // Um valor entre 0 e 100
