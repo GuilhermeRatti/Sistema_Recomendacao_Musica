@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "Playlists.h"
 #include "Musicas.h"
 #include "Propriedades.h"

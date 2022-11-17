@@ -9,6 +9,6 @@ typedef struct Musicas *p_Musicas;
     
     Retorna o PONTEIRO de PROPRIEDADE daquela musica
 */
-p_Propriedades musica_propriedade_get(p_Musicas musica);
+//p_Propriedades musica_propriedade_get(p_Musicas musica);
 
 #endif

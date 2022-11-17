@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "Artistas.h"
 #include "Propriedades.h"
 #include "Musicas.h"
@@ -14,6 +16,8 @@ struct Musicas
     char data_lancamento[11];  // AAAA-MM-DD + \0
     p_Propriedades propriedades; // Propriedades da musica
 };
+
+p_Propriedades musica_propriedade_get(p_Musicas musica);
 
 /*
 id: id spotify da track

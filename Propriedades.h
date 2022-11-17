@@ -20,6 +20,6 @@ double propriedade_likeliness(p_Propriedades media_playlist, p_Propriedades prop
 
     Retorna um PONTEIRO p_Propriedades da estrutura PROPRIEDADE criada com as medias
 */
-p_Propriedades propriedade_media_playlist(p_Musicas *vet_musicas, int qtd_musicas);
+//p_Propriedades propriedade_media_playlist(p_Musicas *vet_musicas, int qtd_musicas);
 
 #endif
