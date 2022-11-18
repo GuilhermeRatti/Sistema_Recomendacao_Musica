@@ -13,10 +13,10 @@ maker: $(OBJS)
 	$(CC) $(CFLAGS) -o main $^
 
 run:
-	./main
+	./main data
 
 clean:
 	@rm *.o main
 
 val:
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-out.txt ./main
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-out.txt ./main data
