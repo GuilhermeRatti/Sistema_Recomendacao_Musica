@@ -29,7 +29,7 @@ p_Spotify spotify_cria()
     sp->vet_artistas = (p_Artista *)calloc(1, sizeof(p_Artista)*sp->art_alocado);
 
     //alocamento do Vetor de Musicas
-    sp->msc_alocado = 50;
+    sp->msc_alocado = 500;
     sp->vet_musicas = (p_Musica *)calloc(1, sizeof(p_Musica)*sp->msc_alocado);
 
     return sp;
@@ -38,13 +38,13 @@ p_Spotify spotify_cria()
 void spotify_inicia(p_Spotify spotify, char path[])
 {
     arquivo_ler_artista_csv(spotify, path);
-    //arquivo_ler_musica_csv(spotify, path);
+    arquivo_ler_musica_csv(spotify, path);
 }
 
 void arquivo_ler_artista_csv(p_Spotify spotify, char path[])
 {
     char caminho[1000];
-    sprintf(caminho,"%s/artists_2.csv", path);
+    sprintf(caminho,"%s/artists_full.csv", path);
     FILE* artcsv = fopen(caminho,"r");
 
     printf("%s",caminho);
@@ -74,7 +74,7 @@ void arquivo_ler_artista_csv(p_Spotify spotify, char path[])
 
 void arquivo_ler_musica_csv(p_Spotify spotify, char path[]){
     char caminho[1000];
-    sprintf(caminho,"%s/tracks_2.csv", path);
+    sprintf(caminho,"%s/tracks_full.csv", path);
     FILE* msccsv = fopen(caminho,"r");
 
     printf("%s",caminho);
@@ -84,8 +84,8 @@ void arquivo_ler_musica_csv(p_Spotify spotify, char path[]){
         exit(1);
     }
     
-    char linha[250];
-
+    char linha[3000];
+    
     while (fscanf(msccsv,"%[^\n]\n",linha)!=EOF)
     {
         if(spotify->msc_qtd == spotify->msc_alocado)
@@ -97,6 +97,7 @@ void arquivo_ler_musica_csv(p_Spotify spotify, char path[]){
         spotify->vet_musicas[spotify->msc_qtd] = musica_cria();
         musica_le(spotify->vet_musicas[spotify->msc_qtd],linha);
         spotify->msc_qtd++;
+        
     }
     
     fclose(msccsv);

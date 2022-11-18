@@ -11,7 +11,7 @@ struct Artista
         int generos_allc;
         int generos_qtd;
     char *nome;
-        int nome_tam;
+        int nome_allc;
     int popularidade;
 };
 
@@ -24,22 +24,22 @@ Nome do artista;
 Popularidade: Popularidade do artista entre 0 e 10
 */
 
-p_Artista artista_cria(){
+p_Artista artista_cria()
+{
     int i;
 
     p_Artista art = (p_Artista)calloc(1, sizeof(struct Artista));
 
+    art->nome_allc = 20;
+    art->nome = (char *)calloc((1 + art->nome_allc), sizeof(char));
+    
     art->generos_allc = 0;
-    art->nome_tam = 20;
-
     art->generos = (char **)calloc(art->generos_allc, sizeof(char *));
-
     for (i = 0; i < art->generos_allc; i++)
     {
         art->generos[i] = (char *)calloc(50, sizeof(char));
     }
 
-    art->nome = (char *)calloc((1 + art->nome_tam), sizeof(char));
     
     return art;
 }
@@ -62,7 +62,7 @@ void artista_le(p_Artista artista, char *linha)
     artista->seguidores = atoi(strtok_r(linha,";",&linha));
     
 
-    //atribuicao dos gneros no vet de generos
+    //atribuicao dos generos no vet de generos
     holder = strtok_r(linha,";",&linha);
 
     while ((genero=strtok_r(holder,"|",&holder)))
@@ -85,7 +85,7 @@ void artista_le(p_Artista artista, char *linha)
             }
         }
 
-        //atribuição dos caractees para a string atual do vetor de generos[]
+        //atribuição dos caracteres para a string atual do vetor de generos
         i=0;
         while (genero[i])
         {
@@ -104,10 +104,10 @@ void artista_le(p_Artista artista, char *linha)
     int numChars=0;
     while (holder[numChars])
     {
-        if((numChars+1)>artista->nome_tam)
+        if((numChars+1)>artista->nome_allc)
         {
-            artista->nome_tam += 20;
-            artista->nome = (char*)realloc(artista->nome, (1+artista->nome_tam)*sizeof(char));
+            artista->nome_allc += 20;
+            artista->nome = (char*)realloc(artista->nome, (1+artista->nome_allc)*sizeof(char));
         }
         artista->nome[numChars] = holder[numChars];
         numChars++;
@@ -119,17 +119,17 @@ void artista_le(p_Artista artista, char *linha)
     artista->popularidade = atoi(strtok_r(linha,"\0",&linha));
 }
 
-void artista_destroi(p_Artista artista){
-
+void artista_destroi(p_Artista artista)
+{
     int i;
 
     for (i = 0; i < artista->generos_allc; i++)
     {
         free(artista->generos[i]);
     }
-
     free(artista->generos);
+    
     free(artista->nome);
-    free(artista);
 
+    free(artista);
 }
