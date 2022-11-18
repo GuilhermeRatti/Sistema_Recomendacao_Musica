@@ -1,8 +1,8 @@
 #ifndef _PLAYLIST_H_
 #define _PLAYLIST_H_
-#include "Musicas.h"
+#include "Musica.h"
 
-typedef struct Playlists *p_Playlists;
+typedef struct Playlist *p_Playlist;
 
 /*
     Recebe como parametro o ponteiro de uma PLAYLIST e de uma MUSICA
@@ -13,6 +13,6 @@ typedef struct Playlists *p_Playlists;
 
     RETORNA A DISTANCIA EUCLIDIANA
 */
-double playlist_likeliness(p_Playlists playlist, p_Musicas musica);
+double playlist_likeliness(p_Playlist playlist, p_Musica musica);
 
 #endif

@@ -1,6 +1,6 @@
 #ifndef _PROPRIEDADES_H_
 #define _PROPRIEDADES_H_
-#include "Musicas.h"
+#include "Musica.h"
 
 typedef struct Propriedades *p_Propriedades;
 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "Artistas.h"
+#include "Artista.h"
 
 struct Artista
 {

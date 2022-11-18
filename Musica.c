@@ -1,10 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Artistas.h"
 #include "Propriedades.h"
-#include "Musicas.h"
-
-struct Musicas
+#include "Musica.h"
+/*
+id: id spotify da track
+nome: nome da música
+popularity: Popularidade da música entre 0 e 100
+duracao_ms: Duração da música em ms
+explicit: Se contem conteudo explicito ou não
+artists: Listas de artistas que criaram a musica
+id_artists: id dos artistas que criaram a música
+data de lançamento
+*/
+struct Musica
 {                              
     char id[23];               // O id sao 22 caracteres + \0
     char *nome;                // Alocacao dinamica
@@ -22,15 +30,19 @@ struct Musicas
     p_Propriedades propriedades; // Propriedades da musica
 };
 
-p_Propriedades musica_propriedade_get(p_Musicas musica);
+p_Musica musica_cria(){
 
-/*
-id: id spotify da track
-nome: nome da música
-popularity: Popularidade da música entre 0 e 100
-duracao_ms: Duração da música em ms
-explicit: Se contem conteudo explicito ou não
-artists: Listas de artistas que criaram a musica
-id_artists: id dos artistas que criaram a música
-data de lançamento
-*/
+    p_Musica musica = (p_Musica)calloc(1, sizeof(struct Musica));
+
+    return musica;
+}
+
+void musica_le(p_Musica musica, char *linha){
+
+}
+
+void musica_destroi(p_Musica musica){
+    
+}
+
+// colocar em propriedades: p_Propriedades musica_propriedade_get(p_Musicas musica);

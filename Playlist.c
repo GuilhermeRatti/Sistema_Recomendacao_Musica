@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Playlists.h"
-#include "Musicas.h"
+#include "Playlist.h"
+#include "Musica.h"
 #include "Propriedades.h"
 
-struct Playlists
+struct Playlist
 {
     char *nome;
     int qtd_musicas;
     int qtd_alocado;
-    p_Musicas *vet_musicas;
+    p_Musica *vet_musicas;
 };
 

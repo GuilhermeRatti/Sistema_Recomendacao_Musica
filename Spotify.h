@@ -1,8 +1,8 @@
 #ifndef _ARQUIVO_H_
 #define _ARQUIVO_H_
-#include "Artistas.h"
-#include "Musicas.h"
-#include "Playlists.h"
+#include "Artista.h"
+#include "Musica.h"
+#include "Playlist.h"
 #include "Propriedades.h"
 
 typedef struct Spotify *p_Spotify;

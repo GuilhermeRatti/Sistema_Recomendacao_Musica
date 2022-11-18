@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Artistas.h"
-#include "Musicas.h"
-#include "Playlists.h"
+#include "Artista.h"
+#include "Playlist.h"
 #include "Propriedades.h"
+#include "Musica.h"
 #include "Spotify.h"
 
 int main(int argc, char *argv[])
