@@ -11,6 +11,7 @@ typedef struct Propriedades *p_Propriedades;
 
     Retorna um DOUBLE sendo a DISTANCIA EUCLIDIANA
 */
+
 double propriedade_likeliness(p_Propriedades media_playlist, p_Propriedades propriedades_musica);
 
 /*

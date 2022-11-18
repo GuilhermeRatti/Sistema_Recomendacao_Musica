@@ -15,12 +15,8 @@ struct Spotify
 p_Spotify spotify_cria()
 {
     p_Spotify sp = (p_Spotify)calloc(1,sizeof(struct Spotify));
-    sp->art_alocado = 100;
+    sp->art_alocado = 2;
     sp->vet_artistas = (p_Artista *)calloc(1,sizeof(p_Artista)*sp->art_alocado);
-    for(int i=0;i<sp->art_alocado;i++)
-    {
-        sp->vet_artistas[i] = artista_cria();
-    }
 
     return sp;
 }
@@ -42,25 +38,22 @@ void arquivo_ler_artista_csv(p_Spotify spotify, char path[])
         printf("ERRO AO ABRIR ARQUIVO ARTISTA.CSV");
         exit(1);
     }
-
+    
     char linha[250];
 
-    while (fscanf(artcsv,"%[^\n]",linha)!=EOF)
+    while (fscanf(artcsv,"%[^\n]\n",linha)!=EOF)
     {
         if(spotify->qtd_art == spotify->art_alocado)
         {
             spotify->art_alocado*=2;
             spotify->vet_artistas = (p_Artista*)realloc(spotify->vet_artistas,
                                                        (spotify->art_alocado)*sizeof(p_Artista));
-            for(int i=spotify->qtd_art;i<spotify->art_alocado;i++)
-            {
-                spotify->vet_artistas[i] = artista_cria();
-            }
         }
+        spotify->vet_artistas[spotify->qtd_art] = artista_cria();
         artista_le(spotify->vet_artistas[spotify->qtd_art],linha);
         spotify->qtd_art++;
     }
-
+    
     fclose(artcsv);
 }
 

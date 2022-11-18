@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
 *.csv
+*.sh
 
 # Object files
 *.o
