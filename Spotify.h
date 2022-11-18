@@ -15,7 +15,7 @@ void arquivo_ler_artista_csv(p_Spotify spotify,char path[]);
 
 p_Artista* spotify_artista_realoca(p_Artista* vet_artista, int qtd_alocado);
 
-void arquivo_ler_musica_csv(char path[]);
+void arquivo_ler_musica_csv(p_Spotify spotify, char path[]);
 
 void arquivo_ler_playlist_bin(char path[]);
 
