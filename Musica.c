@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "Propriedades.h"
 #include "Musica.h"
+#include "Propriedades.h"
 /*
 id: id spotify da track
 nome: nome da música
@@ -154,11 +154,6 @@ void musica_le(p_Musica musica, char *linha)
     //atribuicao da data de lancamento
     i=0;
     holder = strtok_r(linha,";",&linha);
-    
-    if (strlen(holder)> 11)
-    {
-        printf("\n%s\n", musica->id);
-    }
 
     while(holder[i])
     {
@@ -195,4 +190,8 @@ void musica_destroi(p_Musica musica)
     free(musica);
 }
 
-// [colocar em propriedades ?] p_Propriedades musica_propriedade_get(p_Musicas musica);
+
+
+/*p_Propriedades musica_propriedade_get(p_Musica musica){
+    return musica->propriedades;
+}*/

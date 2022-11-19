@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Propriedades.h"
+#include "Musica.h"
 
 struct Propriedades
 {
@@ -85,3 +86,8 @@ valence: [0,1]
 tempo: BPM
 time_signature
 */
+double propriedade_likeliness(p_Propriedades media_playlist, p_Propriedades propriedades_musica);
+
+
+//p_Propriedades propriedade_media_playlist(p_Musica *vet_musicas, int qtd_musicas);
+
