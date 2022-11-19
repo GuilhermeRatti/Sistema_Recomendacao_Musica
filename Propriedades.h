@@ -12,6 +12,15 @@ typedef struct Propriedades *p_Propriedades;
     Retorna um DOUBLE sendo a DISTANCIA EUCLIDIANA
 */
 
+
+p_Propriedades propriedades_cria();
+
+void propriedades_le(p_Propriedades props, char *linha);
+
+void propriedades_imprime(p_Propriedades props);
+    
+void propriedades_destroi(p_Propriedades props);
+
 double propriedade_likeliness(p_Propriedades media_playlist, p_Propriedades propriedades_musica);
 
 /*
@@ -21,6 +30,7 @@ double propriedade_likeliness(p_Propriedades media_playlist, p_Propriedades prop
 
     Retorna um PONTEIRO p_Propriedades da estrutura PROPRIEDADE criada com as medias
 */
-//p_Propriedades propriedade_media_playlist(p_Musicas *vet_musicas, int qtd_musicas);
+p_Propriedades propriedade_media_playlist(p_Musica *vet_musicas, int qtd_musicas);
+
 
 #endif

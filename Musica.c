@@ -29,7 +29,7 @@ struct Musica
 
     
     char data_lancamento[11];  // AAAA-MM-DD + \0
-    // p_Propriedades propriedades; // Propriedades da musica
+    p_Propriedades propriedades; // Propriedades da musica
 };
 
 p_Musica musica_cria()
@@ -44,6 +44,8 @@ p_Musica musica_cria()
 
     musica->vet_art_id = (char**)calloc(musica->artistas_qtd, sizeof(char));
     musica->vet_art_nome = (char**)calloc(musica->artistas_qtd, sizeof(char));
+
+    musica->propriedades = propriedades_cria();
    
     return musica;
 }
@@ -166,6 +168,10 @@ void musica_le(p_Musica musica, char *linha)
     
     musica->data_lancamento[i]='\0';
 
+    //atribuicao das propriedades
+
+    propriedades_le(musica->propriedades, linha);
+
 }
 
 
@@ -183,6 +189,8 @@ void musica_destroi(p_Musica musica)
     free(musica->vet_art_nome);
 
     free(musica->nome);
+
+    propriedades_destroi(musica->propriedades);
 
     free(musica);
 }
