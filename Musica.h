@@ -26,6 +26,10 @@ void musica_busca_titulo(p_Musica musica, char *str, int id_no_vet);
 
 void musica_imprime_informacoes(p_Musica musica, int id_no_vet);
 
+int musica_retorna_id_artistas(p_Musica musica, char ***artistas_out);
+
+void musica_imprime_artista_inexistente(p_Musica musica,int index);
+
 void musica_destroi(p_Musica musica);
 
 //p_Propriedades musica_propriedade_get(p_Musica musica);

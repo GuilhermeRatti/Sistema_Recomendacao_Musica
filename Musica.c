@@ -171,13 +171,17 @@ void musica_busca_titulo(p_Musica musica, char *str, int id_no_vet)
 {
     int i=0,k=0;
     int matched=0; //variavel booleana (0 ou 1) para verificar se o titulo esta contido
+
+    //Loop que vai passar por todos os caracteres do titulo da musica ate identificar se a string esta contida no titulo (ou nao)
+    
     while(musica->nome[i])
     {
-        if(toupper(str[0])==toupper(musica->nome[i]))
+        if(toupper(str[0])==toupper(musica->nome[i])) // Transforma ambos os caracteres em upper pra nao ter diferenca entre minusculo e maiusculo
         {
             k=0;
             matched=1;
-            while(str[k])
+            while(str[k]) // Quando eh verificado que algum char do titulo eh igual com o primeiro char da string digitada
+                          // Verifica com esse while se todas os caracteres seguintes sao iguais, ate o fim da string digitada
             {
                 if(!(musica->nome[i+k]) ||
                    toupper(musica->nome[i+k]) != toupper(str[k]))
@@ -188,6 +192,7 @@ void musica_busca_titulo(p_Musica musica, char *str, int id_no_vet)
                 k++;
             }
         }
+
         if(matched==1)
         {
             break;
@@ -197,21 +202,54 @@ void musica_busca_titulo(p_Musica musica, char *str, int id_no_vet)
 
     if(matched == 1)
     {
-        musica_imprime_informacoes(musica, id_no_vet);
+        printf("%d | %s | %s", id_no_vet,musica->id,musica->nome);
+
+        int i;
+        for(i=0;i<musica->artistas_qtd;i++)
+        {
+            printf(" | %s", musica->vet_art_nome[i]);
+        }
+
+        printf("\n");
     }
 }
 
-void musica_imprime_informacoes(p_Musica musica, int id_no_vet)
+void musica_imprime_informacoes(p_Musica musica, int id)
 {
-    printf("%d | %s | %s", id_no_vet,musica->id,musica->nome);
-    
-    int i;
-    for(i=0;i<musica->artistas_qtd;i++)
+    printf("\nInformacoes da musica na posicao %d no vetor: \n", id);
+    printf("   => Id: %s\n   =>Nome: %s\n   =>Popularidade: %d\n", musica->id, musica->nome, musica->popularidade);
+
+    // Transforma a duracao em ms para minutos:segundos
+    int minutos = (int)(musica->duracao_ms/60000);
+    int segundos = (int)(musica->duracao_ms/1000)/*Isso da no TOTAL de segundos*/ - minutos*60 /*conversao de minutos para segundos*/;
+    printf("   => Duracao: %d Minutos e %d segundos\n", minutos,segundos);
+
+    // Verifica se eh explicito ou nao e imprime uma string (sim/nao)
+    if(musica->explicito==0)
     {
-        printf(" | %s", musica->vet_art_nome[i]);
+        printf("   => Explicito: Nao\n");
+    }
+    else
+    {
+        printf("   => Explicito: Sim\n");
     }
 
-    printf("\n");
+    // Imprimindo data
+    printf("   => Data de lancamento: %s\n", musica->data_lancamento);
+
+    // Artistas vao ser imprimidos separadamente
+}
+
+void musica_imprime_artista_inexistente(p_Musica musica,int index)
+{
+    printf("   %s\n",musica->vet_art_nome[index]);
+    printf("      => Nenhuma informacao foi encontrada sobre esse artista :(\n");
+}
+
+int musica_retorna_id_artistas(p_Musica musica, char ***artistas_out)
+{
+    (*artistas_out) = musica->vet_art_id;
+    return musica->artistas_qtd;
 }
 
 void musica_destroi(p_Musica musica)

@@ -35,6 +35,8 @@ void arquivo_salvar_playlist_bin(char path[]);
 */
 void spotify_busca_musica_titulo(p_Spotify spotify, char *str);
 
+void spotify_lista_musica(p_Spotify spotify, int id);
+
 void spotify_destroi(p_Spotify spotify);
 
 #endif

@@ -21,7 +21,8 @@ struct Propriedades
 };
 
 p_Propriedades propriedades_cria(){
-    return (p_Propriedades)calloc(1, sizeof(struct Propriedades));
+    p_Propriedades p = (p_Propriedades)calloc(1, sizeof(struct Propriedades));
+    return p;
 }
 
 void propriedades_le(p_Propriedades props, char *linha){

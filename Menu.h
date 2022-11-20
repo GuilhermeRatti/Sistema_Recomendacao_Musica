@@ -10,6 +10,18 @@
 */
 int menu_show_options(p_Spotify spotify);
 
+/*
+    Funcao que envia o chamado de buscar musicas por titulo para a biblioteca spotify.h
+
+    Nao retorna nada
+*/
 void menu_buscar_musica(p_Spotify spotify);
+
+/*
+    Funcao que envia o chamado de buscar uma musica por indice de vetor
+
+    Nao retorna nada
+*/
+void menu_lista_musica(p_Spotify spotify);
 
 #endif

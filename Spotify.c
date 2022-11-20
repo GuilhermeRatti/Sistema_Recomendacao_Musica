@@ -125,9 +125,44 @@ void arquivo_salvar_playlist_bin(char path[]);
 void spotify_busca_musica_titulo(p_Spotify spotify,char *str)
 {
     int i;
+    // Loop que vai passar por todas as musicas do spotify
     for(i=0;i<spotify->msc_qtd;i++)
     {
         musica_busca_titulo(spotify->vet_musicas[i], str, i);
+    }
+}
+
+void spotify_lista_musica(p_Spotify spotify, int id)
+{
+    musica_imprime_informacoes(spotify->vet_musicas[id], id);
+    char **artistas_out;
+    int qtd_artistas;
+    qtd_artistas = musica_retorna_id_artistas(spotify->vet_musicas[id], &artistas_out);
+    
+    int i = 0,j;
+    int achou=0; // variavel booleana (0 ou 1) para cobrir casos em que o artista nao exista no artists.csv
+    printf("Informacoes dos artistas:\n");
+    // Loop que vai passar por todos os artistas da musica
+    for(i=0;i<qtd_artistas;i++)
+    {
+        j=0;
+        achou=0;
+        // Loop que vai ficar rodando no vetor que contem todos os artistar ate achar o artista que tem aquele id
+        while(!(artista_compara_id(spotify->vet_artistas[j], artistas_out[i], &achou)))
+        {
+            if(j==(spotify->art_qtd-1))
+                break;
+            j++;
+        }
+        if(achou)
+            artista_imprime(spotify->vet_artistas[j]);
+        else
+            musica_imprime_artista_inexistente(spotify->vet_musicas[id],i);
+    }
+
+    if(i==0)
+    {
+        printf("Essa musica nao possui nenhum artista registrado :/\n");
     }
 }
 

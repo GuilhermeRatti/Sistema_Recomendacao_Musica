@@ -19,7 +19,7 @@ enum OPCOES
 int menu_show_options(p_Spotify spotify)
 {
     int opt;
-    printf(".\n\n===========\n  Spotify  \n===========\n\n");
+    printf("\n\n===========\n  Spotify  \n===========\n\n");
 
     printf("Digite uma das opcoes:\n");
     printf("%s%s%s%s%s%s%s%s%s",
@@ -33,12 +33,17 @@ int menu_show_options(p_Spotify spotify)
             "   8 - Gerar Relatorio\n",
             "   0 - Finalizar o programa\n\n");
 
-    
+    printf("OPCAO: ");
     scanf("%d", &opt);
 
     if(opt==BUSCAR_MUSICA)
     {
         menu_buscar_musica(spotify);
+        return 1;
+    }
+    else if(opt == LISTAR_MUSICA)
+    {
+        menu_lista_musica(spotify);
         return 1;
     }
     else
@@ -76,4 +81,14 @@ void menu_buscar_musica(p_Spotify spotify)
     free(str);
 }
 
+void menu_lista_musica(p_Spotify spotify)
+{
+    int id_no_vet;
 
+    printf("Digite o indice da musica desejada: ");
+    scanf("%d",&id_no_vet);
+
+
+
+    spotify_lista_musica(spotify,id_no_vet);
+}

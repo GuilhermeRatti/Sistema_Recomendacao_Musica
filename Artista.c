@@ -119,6 +119,42 @@ void artista_le(p_Artista artista, char *linha)
     artista->popularidade = atoi(strtok_r(linha,"\0",&linha));
 }
 
+int artista_compara_id(p_Artista artista, char *id, int *achou)
+{
+    if(!(strcmp(artista->id,id)))
+    {
+        (*achou) = 1;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+void artista_imprime(p_Artista artista)
+{
+    printf("   %s\n",artista->nome);
+    printf("      => Id: %s\n", artista->id);
+    printf("      => Seguidores: %d\n", artista->seguidores);
+    
+    printf("      => Generos: ");
+    // Loop que vai printar todos os generos do artista
+    int i=0;
+    for(i=0;i<artista->generos_qtd;i++)
+    {
+        if(i==0)
+            printf("%s",artista->generos[i]);
+        else
+            printf(", %s ",artista->generos[i]);
+    }
+    if(i==0)
+        printf("Esse artista nao possui genero registrado");
+    printf("\n");
+
+    printf("      => Popularidade: %d\n", artista->popularidade);
+}
+
 void artista_destroi(p_Artista artista)
 {
     int i;
