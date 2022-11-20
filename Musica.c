@@ -216,34 +216,37 @@ void musica_busca_titulo(p_Musica musica, char *str, int id_no_vet)
 
 void musica_imprime_informacoes(p_Musica musica, int id)
 {
-    printf("\nInformacoes da musica na posicao %d no vetor: \n", id);
-    printf("   => Id: %s\n   =>Nome: %s\n   =>Popularidade: %d\n", musica->id, musica->nome, musica->popularidade);
+    printf("\n\n|##########################################\n");
+    printf("|######### BUSCA DE MUSICA POR ID #########\n");
+    printf("|##########################################\n");
+    printf("|#\n|# Informacoes da musica na posicao %d no vetor: \n", id);
+    printf("|#   => Id: %s\n|#   =>Nome: %s\n|#   =>Popularidade: %d\n", musica->id, musica->nome, musica->popularidade);
 
     // Transforma a duracao em ms para minutos:segundos
     int minutos = (int)(musica->duracao_ms/60000);
     int segundos = (int)(musica->duracao_ms/1000)/*Isso da no TOTAL de segundos*/ - minutos*60 /*conversao de minutos para segundos*/;
-    printf("   => Duracao: %d Minutos e %d segundos\n", minutos,segundos);
+    printf("|#   => Duracao: %d Minutos e %d segundos\n", minutos,segundos);
 
     // Verifica se eh explicito ou nao e imprime uma string (sim/nao)
     if(musica->explicito==0)
     {
-        printf("   => Explicito: Nao\n");
+        printf("|#   => Explicito: Nao\n");
     }
     else
     {
-        printf("   => Explicito: Sim\n");
+        printf("|#   => Explicito: Sim\n");
     }
 
     // Imprimindo data
-    printf("   => Data de lancamento: %s\n", musica->data_lancamento);
+    printf("|#   => Data de lancamento: %s\n", musica->data_lancamento);
 
     // Artistas vao ser imprimidos separadamente
 }
 
 void musica_imprime_artista_inexistente(p_Musica musica,int index)
 {
-    printf("   %s\n",musica->vet_art_nome[index]);
-    printf("      => Nenhuma informacao foi encontrada sobre esse artista :(\n");
+    printf("|#   %s\n",musica->vet_art_nome[index]);
+    printf("|#      => Nenhuma informacao foi encontrada sobre esse artista :(\n");
 }
 
 int musica_retorna_id_artistas(p_Musica musica, char ***artistas_out)

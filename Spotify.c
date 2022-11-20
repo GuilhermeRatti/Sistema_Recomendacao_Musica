@@ -131,6 +131,9 @@ void spotify_busca_musica_titulo(p_Spotify spotify,char *str)
     {
         musica_busca_titulo(spotify->vet_musicas[i], str, i);
     }
+
+    printf("\nPressione enter para voltar para o menu principal!");
+    scanf("%*[^\n]\n");
 }
 
 void spotify_lista_musica(p_Spotify spotify, int id)
@@ -142,7 +145,7 @@ void spotify_lista_musica(p_Spotify spotify, int id)
     
     int i = 0,j;
     int achou=0; // variavel booleana (0 ou 1) para cobrir casos em que o artista nao exista no artists.csv
-    printf("Informacoes dos artistas:\n");
+    printf("|# Informacoes dos artistas:\n");
     // Loop que vai passar por todos os artistas da musica
     for(i=0;i<qtd_artistas;i++)
     {
@@ -165,6 +168,10 @@ void spotify_lista_musica(p_Spotify spotify, int id)
     {
         printf("Essa musica nao possui nenhum artista registrado :/\n");
     }
+
+    printf("\nPressione enter para voltar para o menu principal!");
+    fgetc(stdin);
+    scanf("%*[^\n]\n");
 }
 
 void spotify_destroi(p_Spotify spotify)
