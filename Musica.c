@@ -3,6 +3,8 @@
 #include <string.h>
 #include "Musica.h"
 #include "Propriedades.h"
+#include <ctype.h>
+
 /*
 id: id spotify da track
 nome: nome da música
@@ -27,12 +29,12 @@ struct Musica
     unsigned int duracao_ms;   // Duracao da musica em ms
     int explicito;             // 0 se nao tem conteudo explicito, 1 se tiver
     
-    char **vet_art_nome;   // Vetor com os artistas da musica
-    char **vet_art_id;      // Vetor com os ids dos artistas; cada id tem 22 caracteres + \0
+    char **vet_art_nome;       // Vetor com os artistas da musica
+    char **vet_art_id;         // Vetor com os ids dos artistas; cada id tem 22 caracteres + \0
         int artistas_qtd;
 
     
-    char data_lancamento[11];  // AAAA-MM-DD + \0
+    char data_lancamento[11];    // AAAA-MM-DD + \0
     p_Propriedades propriedades; // Propriedades da musica
 };
 
@@ -167,6 +169,52 @@ void musica_le(p_Musica musica, char *linha)
 
 }
 
+void musica_busca_titulo(p_Musica musica, char *str, int id_no_vet)
+{
+    int i=0,k=0;
+    int matched=0; //variavel booleana (0 ou 1) para verificar se o titulo esta contido
+    while(musica->nome[i])
+    {
+        if(toupper(str[0])==toupper(musica->nome[i]))
+        {
+            k=0;
+            matched=1;
+            while(str[k])
+            {
+                if(!(musica->nome[i+k]) ||
+                   toupper(musica->nome[i+k]) != toupper(str[k]))
+                {
+                    matched=0;
+                    break;
+                }
+                k++;
+            }
+        }
+        if(matched==1)
+        {
+            break;
+        }
+        i++;
+    }
+
+    if(matched == 1)
+    {
+        musica_imprime_informacoes(musica, id_no_vet);
+    }
+}
+
+void musica_imprime_informacoes(p_Musica musica, int id_no_vet)
+{
+    printf("%d | %s | %s", id_no_vet,musica->id,musica->nome);
+    
+    int i;
+    for(i=0;i<musica->artistas_qtd;i++)
+    {
+        printf(" | %s", musica->vet_art_nome[i]);
+    }
+
+    printf("\n");
+}
 
 void musica_destroi(p_Musica musica)
 {

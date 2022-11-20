@@ -17,6 +17,15 @@ void musica_le(p_Musica musica, char *linha);
 
 void musica_le_artistas(p_Musica musica, char* holder_nome, char* holder_id);
 
+/*
+    Verifica se a string digitada str[] esta contida no titulo
+    
+    Caso esteja, chama a funcao musica_imprime_informacoes()
+*/
+void musica_busca_titulo(p_Musica musica, char *str, int id_no_vet);
+
+void musica_imprime_informacoes(p_Musica musica, int id_no_vet);
+
 void musica_destroi(p_Musica musica);
 
 //p_Propriedades musica_propriedade_get(p_Musica musica);

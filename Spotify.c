@@ -6,6 +6,7 @@
 #include "Musica.h"
 #include "Playlist.h"
 #include "Propriedades.h"
+#include "Menu.h"
 
 struct Spotify
 {
@@ -35,13 +36,25 @@ p_Spotify spotify_cria()
     return sp;
 }
 
+
 void spotify_inicia(p_Spotify spotify, char path[])
 {
     printf(".");
     arquivo_ler_artista_csv(spotify, path);
     printf(".");
     arquivo_ler_musica_csv(spotify, path);
-    printf(".\n\n===========\n  Spotify  \n===========\n\n");
+
+    OPCOES_DO_MENU opt;
+    while (1)
+    {
+        opt = menu_show_options(spotify);
+
+        if(opt == FINALIZAR)
+        {
+            break;
+        }
+    }
+    
     //propriedades_imprime();
 }
 
@@ -108,6 +121,15 @@ void arquivo_ler_musica_csv(p_Spotify spotify, char path[]){
 void arquivo_ler_playlist_bin(char path[]);
 
 void arquivo_salvar_playlist_bin(char path[]);
+
+void spotify_busca_musica_titulo(p_Spotify spotify,char *str)
+{
+    int i;
+    for(i=0;i<spotify->msc_qtd;i++)
+    {
+        musica_busca_titulo(spotify->vet_musicas[i], str, i);
+    }
+}
 
 void spotify_destroi(p_Spotify spotify)
 {

@@ -19,4 +19,4 @@ clean:
 	@rm *.o main
 
 val:
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-out.txt ./main data
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-out.txt -s ./main data

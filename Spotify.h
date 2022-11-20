@@ -7,6 +7,12 @@
 
 typedef struct Spotify *p_Spotify;
 
+typedef enum 
+{
+    CONTINUAR = 1,
+    FINALIZAR = 0
+}OPCOES_DO_MENU;
+
 p_Spotify spotify_cria();
 
 void spotify_inicia(p_Spotify spotify, char path[]);
@@ -20,6 +26,14 @@ void arquivo_ler_musica_csv(p_Spotify spotify, char path[]);
 void arquivo_ler_playlist_bin(char path[]);
 
 void arquivo_salvar_playlist_bin(char path[]);
+
+/*
+    Percorre o vetor de musicas da TAD spotify
+    Chama a funcao musica_busca_titulo() para cada uma delas
+
+    Nao retorna nem printa nada
+*/
+void spotify_busca_musica_titulo(p_Spotify spotify, char *str);
 
 void spotify_destroi(p_Spotify spotify);
 
