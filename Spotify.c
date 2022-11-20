@@ -37,15 +37,18 @@ p_Spotify spotify_cria()
 
 void spotify_inicia(p_Spotify spotify, char path[])
 {
+    printf(".");
     arquivo_ler_artista_csv(spotify, path);
+    printf(".");
     arquivo_ler_musica_csv(spotify, path);
+    printf(".\n\n===========\n  Spotify  \n===========\n\n");
     //propriedades_imprime();
 }
 
 void arquivo_ler_artista_csv(p_Spotify spotify, char path[])
 {
     char caminho[1000];
-    sprintf(caminho,"%s/artists_5.csv", path);
+    sprintf(caminho,"%s/artists_full.csv", path);
     FILE* artcsv = fopen(caminho,"r");
 
     if(!artcsv)
@@ -74,7 +77,7 @@ void arquivo_ler_artista_csv(p_Spotify spotify, char path[])
 
 void arquivo_ler_musica_csv(p_Spotify spotify, char path[]){
     char caminho[1000];
-    sprintf(caminho,"%s/tracks_5.csv", path);
+    sprintf(caminho,"%s/tracks_full.csv", path);
     FILE* msccsv = fopen(caminho,"r");
 
     if(!msccsv)

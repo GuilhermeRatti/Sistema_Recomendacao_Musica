@@ -15,6 +15,8 @@ p_Musica musica_cria();
 
 void musica_le(p_Musica musica, char *linha);
 
+void musica_le_artistas(p_Musica musica, char* holder_nome, char* holder_id);
+
 void musica_destroi(p_Musica musica);
 
 //p_Propriedades musica_propriedade_get(p_Musica musica);

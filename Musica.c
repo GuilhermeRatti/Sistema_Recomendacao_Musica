@@ -13,6 +13,10 @@ artists: Listas de artistas que criaram a musica
 id_artists: id dos artistas que criaram a música
 data de lançamento
 */
+
+#define valor_alloc_nome 20
+#define valor_alloc_id 23
+
 struct Musica
 {                              
     char id[23];               // O id sao 22 caracteres + \0
@@ -36,7 +40,7 @@ p_Musica musica_cria()
 {
     p_Musica musica = (p_Musica)calloc(1, sizeof(struct Musica));
 
-    musica->nome_allc = 20;
+    musica->nome_allc = valor_alloc_nome;
 
     musica->nome = (char *)calloc(musica->nome_allc + 1, sizeof(char));
     
@@ -52,10 +56,10 @@ p_Musica musica_cria()
 
 void musica_le(p_Musica musica, char *linha)
 {
-    char *holder,*hold_art;
+    char *holder, *holder_2, *holder_artista_nome, *holder_artista_id;
     int i=0;
 
-    //atribuicao do id 
+    //=> Parte de atribuicao do id da musica <=
     i=0;
     holder = strtok_r(linha,";",&linha);
     
@@ -66,92 +70,87 @@ void musica_le(p_Musica musica, char *linha)
     }
     musica->id[i]='\0';
 
-    //atribuicao do nome da musica
-
+    //=> Parte de atribuicao do nome da musica <=
     i=0;
     holder = strtok_r(linha,";",&linha);
    
-    int numChars=0;
-    while (holder[numChars])
+    int contador_chars=0;
+    while (holder[contador_chars])
     {
-        if((numChars+1)>musica->nome_allc)
+
+        if((contador_chars+1)>musica->nome_allc)
         {
-            musica->nome_allc += 20;
+            musica->nome_allc += valor_alloc_nome;
             musica->nome = (char*)realloc(musica->nome, (1+musica->nome_allc)*sizeof(char));
         }
-        musica->nome[numChars] = holder[numChars];
-        numChars++;
+
+        musica->nome[contador_chars] = holder[contador_chars];
+        contador_chars++;
     }
 
-    musica->nome[numChars] = '\0';
+    musica->nome[contador_chars] = '\0';
 
-    //atribuicao da popularidade
+    //=> Parte de atribuicao da popularidade da musica <=
     musica->popularidade = atoi(strtok_r(linha,";",&linha));
     
-    //atribuicao da duracao
+    //=> Parte de atribuicao da duracao da musica <=
     musica->duracao_ms = atoi(strtok_r(linha,";",&linha));
     
-    //atribuicao do indicador de conteudo explicito
+    //=> Parte de atribuicao do indicador de conteudo explicito da musica <=
     musica->explicito = atoi(strtok_r(linha,";",&linha));
     
-    //atribuicao dos nomes de artistas no vet de nomes
+    //=> Parte de atribuicao dos nomes e ids de artistas nos seus respectivos vets da musica <=
     i=0;
     holder = strtok_r(linha,";",&linha);
+    holder_2 = strtok_r(linha,";",&linha);
 
-    int contador_chars = 20;
-
-    while ((hold_art=strtok_r(holder,"|",&holder)))
+    //OSB: O numero de nomes de artistas e de ids de artistas é SEMPRE o mesmo, isso possibilita o mesmo while para as duas atribuicoes 
+    while ((holder_artista_nome = strtok_r(holder,"|",&holder)) && (holder_artista_id=strtok_r(holder_2,"|",&holder_2)))
     {
-        
-        contador_chars = 20;
-        
-        musica->artistas_qtd += 1;
+        contador_chars = valor_alloc_nome;
+        //-> Sub-parte de alocacao de um novo artista
+
+        musica->artistas_qtd++;
         musica->vet_art_nome = (char**)realloc(musica->vet_art_nome, musica->artistas_qtd*sizeof(char*));
         musica->vet_art_id = (char**)realloc(musica->vet_art_id, musica->artistas_qtd*sizeof(char*));
 
-        musica->vet_art_nome[musica->artistas_qtd-1] = (char*)calloc(1, sizeof(char)*(contador_chars+1));
-        musica->vet_art_id[musica->artistas_qtd-1] = (char*)calloc(1, sizeof(char)*23);
+        musica->vet_art_nome[musica->artistas_qtd-1] = (char*)calloc(1, sizeof(char)*(valor_alloc_nome+1));
+        musica->vet_art_id[musica->artistas_qtd-1] = (char*)calloc(1, sizeof(char)*valor_alloc_id);
 
-        //atribuição dos caracteres para a string atual do vetor de nomes de artistas
+        //variavel contendo o ponteiro do nome e id do artista atual (para fins esteticos):
+        char *artista_atual_nome = musica->vet_art_nome[musica->artistas_qtd-1];
+        char *artista_atual_id = musica->vet_art_id[musica->artistas_qtd-1];
+        
+        //-> Sub-parte de atribuição dos caracteres para a string atual do vetor de nomes de artistas
         i=0;
-        while (hold_art[i])
+        while (holder_artista_nome[i])
         {
             if (i+1>contador_chars)
             {
-                contador_chars += 20;
+                contador_chars += valor_alloc_nome;
+                
                 musica->vet_art_nome[musica->artistas_qtd-1] = (char*)realloc(musica->vet_art_nome[musica->artistas_qtd-1], sizeof(char)*(contador_chars+1));
+                artista_atual_nome = musica->vet_art_nome[musica->artistas_qtd-1];
             }
             
-            musica->vet_art_nome[musica->artistas_qtd-1][i] = hold_art[i];
+            artista_atual_nome[i] = holder_artista_nome[i];
             i++;
         }
-        musica->vet_art_nome[musica->artistas_qtd-1][i] = '\0';
+
+        artista_atual_nome = '\0';
         
-    }
-
-    //atribuicao dos ids de artistas no vet de ids
-    i=0;
-    holder = strtok_r(linha,";",&linha);
-
-    while ((hold_art=strtok_r(holder,"|",&holder)))
-    {   
-        int contador=0; //contador de ids (vai se igualar a qtd_artistas) 
-
-        //realocação para cada novo artista é feita no passo anterior
-
-        //atribuição dos caracteres para a string atual do vetor de nome de artistas
+        //-> Sub-parte de atribuicao dos ids de artistas no vet de ids
         i=0;
-        while (hold_art[i])
+        while (holder_artista_id[i])
         {
-            musica->vet_art_id[contador][i] = hold_art[i];
+            artista_atual_id[i] = holder_artista_id[i];
             i++;
         }
-        musica->vet_art_id[contador][i] = '\0';
+        artista_atual_id[i] = '\0';
 
-        contador++;
     }
 
-    //atribuicao da data de lancamento
+    //=> Atribuicao da data de lancamento <=
     i=0;
     holder = strtok_r(linha,";",&linha);
 
@@ -163,8 +162,7 @@ void musica_le(p_Musica musica, char *linha)
     
     musica->data_lancamento[i]='\0';
 
-    //atribuicao das propriedades
-
+    //=> Atribuicao das propriedades <=
     propriedades_le(musica->propriedades, linha);
 
 }

@@ -10,7 +10,7 @@ OBJS = $(SRCS:.c=.o)
 	$(CC) -o $@ -c $< $(CFLAGS)
 
 maker: $(OBJS)
-	$(CC) $(CFLAGS) -o main $^
+	$(CC) -o main $^ $(CFLAGS)
 
 run:
 	./main data

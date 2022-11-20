@@ -8,6 +8,7 @@
 
 int main(int argc, char *argv[])
 {
+    printf("Iniciando Spotify");
     p_Spotify sp = spotify_cria();
     spotify_inicia(sp,argv[1]);
     spotify_destroi(sp);
