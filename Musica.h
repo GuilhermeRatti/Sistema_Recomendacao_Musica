@@ -30,6 +30,10 @@ int musica_retorna_id_artistas(p_Musica musica, char ***artistas_out);
 
 void musica_imprime_artista_inexistente(p_Musica musica,int index);
 
+char *musica_retorna_id(p_Musica musica);
+
+char *musica_retorna_nome(p_Musica musica);
+
 void musica_destroi(p_Musica musica);
 
 //p_Propriedades musica_propriedade_get(p_Musica musica);

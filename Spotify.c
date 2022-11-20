@@ -18,6 +18,10 @@ struct Spotify
         int msc_alocado;
         int msc_qtd;
 
+    p_Playlist* vet_playlists;
+        int pls_alocado;
+        int pls_qtd;
+
 };
 
 p_Spotify spotify_cria()
@@ -39,9 +43,7 @@ p_Spotify spotify_cria()
 
 void spotify_inicia(p_Spotify spotify, char path[])
 {
-    printf(".");
     arquivo_ler_artista_csv(spotify, path);
-    printf(".");
     arquivo_ler_musica_csv(spotify, path);
 
     OPCOES_DO_MENU opt;
@@ -55,7 +57,6 @@ void spotify_inicia(p_Spotify spotify, char path[])
         }
     }
     
-    //propriedades_imprime();
 }
 
 void arquivo_ler_artista_csv(p_Spotify spotify, char path[])

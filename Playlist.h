@@ -13,6 +13,16 @@ typedef struct Playlist *p_Playlist;
 
     RETORNA A DISTANCIA EUCLIDIANA
 */
-double playlist_likeliness(p_Playlist playlist, p_Musica musica);
+//double playlist_likeliness(p_Playlist playlist, p_Musica musica);
+
+p_Playlist playlist_cria();
+
+void playlist_listar_todas();
+
+void playlist_listar_uma();
+
+void playlist_adicionar_musica();
+
+void playlist_destroi();
 
 #endif
