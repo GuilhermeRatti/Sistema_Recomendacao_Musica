@@ -45,12 +45,14 @@ p_Musica musica_cria()
     musica->nome_allc = valor_alloc_nome;
 
     musica->nome = (char *)calloc(musica->nome_allc + 1, sizeof(char));
+
+    //alocacao do primeiro artista
+    musica->vet_art_id = (char**)calloc(1, sizeof(char*));
+    musica->vet_art_nome = (char**)calloc(1, sizeof(char*));
+
+    musica->vet_art_nome[0] = (char*)calloc(1, sizeof(char)*(valor_alloc_nome+1));
+    musica->vet_art_id[0] = (char*)calloc(1, sizeof(char)*valor_alloc_id);
     
-    musica->artistas_qtd = 0;
-
-    musica->vet_art_id = (char**)calloc(musica->artistas_qtd, sizeof(char*));
-    musica->vet_art_nome = (char**)calloc(musica->artistas_qtd, sizeof(char*));
-
     musica->propriedades = propriedades_cria();
    
     return musica;
@@ -111,17 +113,15 @@ void musica_le(p_Musica musica, char *linha)
     {
         contador_chars = valor_alloc_nome;
         //-> Sub-parte de alocacao de um novo artista
-
         musica->artistas_qtd++;
-        musica->vet_art_nome = (char**)realloc(musica->vet_art_nome, musica->artistas_qtd*sizeof(char*));
-        musica->vet_art_id = (char**)realloc(musica->vet_art_id, musica->artistas_qtd*sizeof(char*));
 
-        musica->vet_art_nome[musica->artistas_qtd-1] = (char*)calloc(1, sizeof(char)*(valor_alloc_nome+1));
-        musica->vet_art_id[musica->artistas_qtd-1] = (char*)calloc(1, sizeof(char)*valor_alloc_id);
+        if(musica->artistas_qtd > 1){
+            musica->vet_art_nome = (char**)realloc(musica->vet_art_nome, musica->artistas_qtd*sizeof(char*));
+            musica->vet_art_id = (char**)realloc(musica->vet_art_id, musica->artistas_qtd*sizeof(char*));
 
-        //variavel contendo o ponteiro do nome e id do artista atual (para fins esteticos):
-        char *artista_atual_nome = musica->vet_art_nome[musica->artistas_qtd-1];
-        char *artista_atual_id = musica->vet_art_id[musica->artistas_qtd-1];
+            musica->vet_art_nome[musica->artistas_qtd-1] = (char*)calloc(1, sizeof(char)*(valor_alloc_nome+1));
+            musica->vet_art_id[musica->artistas_qtd-1] = (char*)calloc(1, sizeof(char)*valor_alloc_id);
+        }        
         
         //-> Sub-parte de atribuição dos caracteres para a string atual do vetor de nomes de artistas
         i=0;
@@ -132,23 +132,21 @@ void musica_le(p_Musica musica, char *linha)
                 contador_chars += valor_alloc_nome;
                 
                 musica->vet_art_nome[musica->artistas_qtd-1] = (char*)realloc(musica->vet_art_nome[musica->artistas_qtd-1], sizeof(char)*(contador_chars+1));
-                artista_atual_nome = musica->vet_art_nome[musica->artistas_qtd-1];
             }
             
-            artista_atual_nome[i] = holder_artista_nome[i];
+            musica->vet_art_nome[musica->artistas_qtd-1][i] = holder_artista_nome[i];
             i++;
         }
-
-        artista_atual_nome = '\0';
+        musica->vet_art_nome[musica->artistas_qtd-1][i] = '\0';
         
         //-> Sub-parte de atribuicao dos ids de artistas no vet de ids
         i=0;
         while (holder_artista_id[i])
         {
-            artista_atual_id[i] = holder_artista_id[i];
+            musica->vet_art_id[musica->artistas_qtd-1][i] = holder_artista_id[i];
             i++;
         }
-        artista_atual_id[i] = '\0';
+        musica->vet_art_id[musica->artistas_qtd-1][i] = '\0';
 
     }
 
