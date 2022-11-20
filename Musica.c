@@ -48,8 +48,8 @@ p_Musica musica_cria()
     
     musica->artistas_qtd = 0;
 
-    musica->vet_art_id = (char**)calloc(musica->artistas_qtd, sizeof(char));
-    musica->vet_art_nome = (char**)calloc(musica->artistas_qtd, sizeof(char));
+    musica->vet_art_id = (char**)calloc(musica->artistas_qtd, sizeof(char*));
+    musica->vet_art_nome = (char**)calloc(musica->artistas_qtd, sizeof(char*));
 
     musica->propriedades = propriedades_cria();
    

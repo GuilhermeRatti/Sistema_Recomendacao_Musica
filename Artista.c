@@ -122,8 +122,7 @@ void artista_le(p_Artista artista, char *linha)
 void artista_destroi(p_Artista artista)
 {
     int i;
-
-    for (i = 0; i < artista->generos_allc; i++)
+    for (i = 0; i < artista->generos_qtd; i++)
     {
         free(artista->generos[i]);
     }
