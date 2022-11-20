@@ -50,8 +50,8 @@ p_Musica musica_cria()
     musica->vet_art_id = (char**)calloc(1, sizeof(char*));
     musica->vet_art_nome = (char**)calloc(1, sizeof(char*));
 
-    musica->vet_art_nome[0] = (char*)calloc(1, sizeof(char)*(valor_alloc_nome+1));
-    musica->vet_art_id[0] = (char*)calloc(1, sizeof(char)*valor_alloc_id);
+    musica->vet_art_nome[0] = (char*)calloc((valor_alloc_nome+1), sizeof(char));
+    musica->vet_art_id[0] = (char*)calloc(valor_alloc_id, sizeof(char));
     
     musica->propriedades = propriedades_cria();
    
@@ -212,6 +212,14 @@ void musica_imprime_informacoes(p_Musica musica, int id_no_vet)
     }
 
     printf("\n");
+}
+
+char *musica_retorna_id(p_Musica musica){
+    return musica->id;
+}
+
+char *musica_retorna_nome(p_Musica musica){
+    return musica->nome;
 }
 
 void musica_destroi(p_Musica musica)
