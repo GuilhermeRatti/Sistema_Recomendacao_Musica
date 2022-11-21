@@ -4,7 +4,7 @@
 
 typedef struct Playlist *p_Playlist;
 
-/*
+/***************************************************************************************
 *    Recebe como parametro o ponteiro de uma PLAYLIST e de uma MUSICA
 *
 *    Vai utilizar a funcao propriedade_media_playlist para calcular a media da playlist
@@ -12,7 +12,7 @@ typedef struct Playlist *p_Playlist;
 *    A partir da media da playlist vai calcular a DISTANCIA EUCLIDIANA
 *
 *    RETORNA A DISTANCIA EUCLIDIANA
-*/
+****************************************************************************************/
 double playlist_likeliness(p_Playlist playlist, p_Musica musica);
 
 p_Playlist playlist_cria();
