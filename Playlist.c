@@ -25,11 +25,11 @@ p_Playlist playlist_cria(){
     char char_atual;
     int char_contador=0;
 
-    printf("Informe o nome desejado para a Playlist: ");
-    scanf("%c", &char_atual);
-    while (char_atual == '\n')
+    printf("\nInforme o nome desejado para a Playlist: ");
+    scanf("\n%c", &char_atual);
+    while (char_atual == '\n' || char_atual == ' ')
     {
-        printf("NOME INVALIDO");
+        printf("\nNOME INVALIDO\n");
         scanf("%c", &char_atual);
     }
     while (char_atual != '\n')
@@ -54,59 +54,77 @@ p_Playlist playlist_cria(){
 Exibe os dados de todas as playlists, uma por linha. Para cada playlist, deve ser exibido 
 o índice da playlist no array, o nome da playlist e o número de músicas que ela possui.
 */
-void playlist_listar_todas(p_Playlist* vetor_playlists, int qtd_pls){
+void playlist_listar_todas(p_Playlist* vetor_playlists, int playlists_qtd){
     int i;
 
-    for (i = 0; i < qtd_pls; i++)
+    if (playlists_qtd == 0)
     {
-        printf("Playlis nº %d: '%s'\nContem %d musicas!\n\n", i,vetor_playlists[i]->nome,vetor_playlists[i]->musicas_qtd);
+        printf("\nNao ha playlists!");
     }
-    
+    else
+    {
+        for (i = 0; i < playlists_qtd; i++)
+        {
+            printf("\nPlaylist de indice %d - '%s' - Contem %d musicas!", i,vetor_playlists[i]->nome,vetor_playlists[i]->musicas_qtd);
+        }
+        printf("\n");
+    }
 }
 
 /*
 Solicita que o usuário digite o indice da playlist e apresenta na 
 tela o nome da playlist e os títulos das músicas que ela possui.
 */
-void playlist_listar_uma(p_Playlist* vetor_playlists, int qtd_pls, p_Musica* vetor_musicas){
+void playlist_listar_uma(p_Playlist* vetor_playlists, int playlists_qtd, p_Musica* vetor_musicas){
     int i=-1, j=0, indx;
 
-    printf("Informe o indice da playlist a ser exibida: ");
-    scanf("%d", &i);
-    printf("\n");
-
-    while (i<0 || i>qtd_pls-1)
+    if (playlists_qtd == 0)
     {
-        printf("\nNUMERO INVALIDO!\n\n");
-
-        printf("Informe o indice da playlist a ser exibida: ");
+        printf("\nNao ha playlists!\n");
+    }
+    else
+    {
+        printf("\nInforme o indice da playlist a ser exibida: ");
         scanf("%d", &i);
-        printf("\n");
-    }
 
-    printf("\nMusicas da Playlist: '%s'\n", vetor_playlists[i]->nome);
+        while (i<0 || i>playlists_qtd-1)
+        {
+            printf("\nNUMERO INVALIDO!\n\n");
 
-    for (j = 0; j < vetor_playlists[i]->musicas_qtd; j++)
-    {
-        indx = vetor_playlists[i]->vet_musicas[j];
-        printf("> %s\n", musica_retorna_nome(vetor_musicas[indx]));
+            printf("\nInforme o indice da playlist a ser exibida: ");
+            scanf("%d", &i);
+        }
+
+        if (vetor_playlists[i]->musicas_qtd == 0)
+        {
+            printf("\nA playlist %d - '%s' - nao contem musicas!\n", i,vetor_playlists[i]->nome);
+        }
+        else
+        {
+            printf("\nMusicas da Playlist: '%s'\n", vetor_playlists[i]->nome);
+
+            for (j = 0; j < vetor_playlists[i]->musicas_qtd; j++)
+            {
+                indx = vetor_playlists[i]->vet_musicas[j];
+                printf("> %s\n", musica_retorna_nome(vetor_musicas[indx]));
+            }
+            
+            printf("\n");
+        }
     }
-    
-    printf("\n");
 }
 /*
 Solicita o índice de uma música e de uma 
 playlist e adiciona a música a playlist.
 */
-void playlist_adicionar_musica(p_Playlist *vet_playlists, int indx_playlist, int qtd_musicas){
+void playlist_adicionar_musica(p_Playlist *vet_playlists, int musicas_qtd, int playlists_qtd){
     
-    int indx_musica;
+    int indx_musica, indx_playlist;
 
-    printf("Informe o indice da musica a ser adicionada: ");
+    printf("\nInforme o indice da musica a ser adicionada: ");
     scanf("%d", &indx_musica);
-    printf("\n");
 
-    while (indx_musica<0 || indx_musica>qtd_musicas-1)
+    while (indx_musica<0 || indx_musica>musicas_qtd-1)
     {
         printf("\nNUMERO INVALIDO!\n\n");
 
@@ -115,6 +133,17 @@ void playlist_adicionar_musica(p_Playlist *vet_playlists, int indx_playlist, int
         printf("\n");
     }
 
+    printf("Informe o indice da playlist em que a musica eh adicionada: ");
+    scanf("%d", &indx_playlist);
+
+    while (indx_playlist<0 || indx_playlist>playlists_qtd-1)
+    {
+        printf("\nNUMERO INVALIDO!\n\n");
+
+        printf("Informe o indice da playlist a ser exibida: ");
+        scanf("%d", &indx_playlist);
+    }
+    
     vet_playlists[indx_playlist]->musicas_qtd++;
     int qtd_atual = vet_playlists[indx_playlist]->musicas_qtd;
 
@@ -123,11 +152,11 @@ void playlist_adicionar_musica(p_Playlist *vet_playlists, int indx_playlist, int
     vet_playlists[indx_playlist]->vet_musicas[qtd_atual-1] = indx_musica;
 }
 
-void playlist_destroi(p_Playlist plist){
-    free(plist->nome);
-    free(plist->vet_musicas);
+void playlist_destroi(p_Playlist playlist){
+    free(playlist->nome);
+    free(playlist->vet_musicas);
     
-    free(plist);
+    free(playlist);
 }
 
 

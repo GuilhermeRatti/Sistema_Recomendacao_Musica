@@ -2,6 +2,7 @@
 *.d
 *.csv
 *.sh
+main
 
 # Object files
 *.o

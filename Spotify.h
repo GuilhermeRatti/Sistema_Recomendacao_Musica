@@ -37,6 +37,14 @@ void spotify_busca_musica_titulo(p_Spotify spotify, char *str);
 
 void spotify_lista_musica(p_Spotify spotify, int id);
 
+void spotify_playlist_cria(p_Spotify spotify);
+
+void spotify_playlist_listar_todas(p_Spotify spotify);
+
+void spotify_playlist_listar_uma(p_Spotify spotify);
+
+void spotify_playlist_adicionar_musica(p_Spotify spotify);
+
 void spotify_destroi(p_Spotify spotify);
 
 #endif
