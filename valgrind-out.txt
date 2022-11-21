@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ==27276== Memcheck, a memory error detector
 ==27276== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
 ==27276== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
@@ -12,3 +13,100 @@
 ==27276== All heap blocks were freed -- no leaks are possible
 ==27276== 
 ==27276== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+=======
+==74901== Memcheck, a memory error detector
+==74901== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==74901== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==74901== Command: ./main data
+==74901== Parent PID: 74900
+==74901== 
+==74901== 
+==74901== Process terminating with default action of signal 2 (SIGINT)
+==74901==    at 0x4968FD0: read (read.c:26)
+==74901==    by 0x48EBB9E: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:517)
+==74901==    by 0x48ECF85: _IO_default_uflow (genops.c:362)
+==74901==    by 0x48C2236: __vfscanf_internal (vfscanf-internal.c:2941)
+==74901==    by 0x48BE23C: __isoc99_fscanf (isoc99_fscanf.c:30)
+==74901==    by 0x109BB0: arquivo_ler_artista_csv (Spotify.c:76)
+==74901==    by 0x1099FA: spotify_inicia (Spotify.c:46)
+==74901==    by 0x10A64E: main (main.c:13)
+==74901== 
+==74901== HEAP SUMMARY:
+==74901==     in use at exit: 10,639,764 bytes in 282,502 blocks
+==74901==   total heap usage: 338,906 allocs, 56,404 frees, 12,190,752 bytes allocated
+==74901== 
+==74901== 0 bytes in 51,699 blocks are still reachable in loss record 1 of 10
+==74901==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74901==    by 0x1093D8: artista_cria (Artista.c:37)
+==74901==    by 0x109B42: arquivo_ler_artista_csv (Spotify.c:84)
+==74901==    by 0x1099FA: spotify_inicia (Spotify.c:46)
+==74901==    by 0x10A64E: main (main.c:13)
+==74901== 
+==74901== 48 bytes in 1 blocks are still reachable in loss record 2 of 10
+==74901==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74901==    by 0x10996A: spotify_cria (Spotify.c:30)
+==74901==    by 0x10A630: main (main.c:12)
+==74901== 
+==74901== 472 bytes in 1 blocks are still reachable in loss record 3 of 10
+==74901==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74901==    by 0x48DD92D: __fopen_internal (iofopen.c:65)
+==74901==    by 0x48DD92D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==74901==    by 0x109A8D: arquivo_ler_artista_csv (Spotify.c:66)
+==74901==    by 0x1099FA: spotify_inicia (Spotify.c:46)
+==74901==    by 0x10A64E: main (main.c:13)
+==74901== 
+==74901== 4,000 bytes in 1 blocks are still reachable in loss record 4 of 10
+==74901==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74901==    by 0x1099C2: spotify_cria (Spotify.c:38)
+==74901==    by 0x10A630: main (main.c:12)
+==74901== 
+==74901== 264,924 bytes in 6,124 blocks are still reachable in loss record 5 of 10
+==74901==    at 0x483DFAF: realloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74901==    by 0x1096CD: artista_le (Artista.c:110)
+==74901==    by 0x109B77: arquivo_ler_artista_csv (Spotify.c:85)
+==74901==    by 0x1099FA: spotify_inicia (Spotify.c:46)
+==74901==    by 0x10A64E: main (main.c:13)
+==74901== 
+==74901== 396,624 bytes in 25,941 blocks are still reachable in loss record 6 of 10
+==74901==    at 0x483DFAF: realloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74901==    by 0x109562: artista_le (Artista.c:80)
+==74901==    by 0x109B77: arquivo_ler_artista_csv (Spotify.c:85)
+==74901==    by 0x1099FA: spotify_inicia (Spotify.c:46)
+==74901==    by 0x10A64E: main (main.c:13)
+==74901== 
+==74901== 1,024,000 bytes in 1 blocks are still reachable in loss record 7 of 10
+==74901==    at 0x483DFAF: realloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74901==    by 0x109B10: arquivo_ler_artista_csv (Spotify.c:81)
+==74901==    by 0x1099FA: spotify_inicia (Spotify.c:46)
+==74901==    by 0x10A64E: main (main.c:13)
+==74901== 
+==74901== 1,501,836 bytes in 71,516 blocks are still reachable in loss record 8 of 10
+==74901==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74901==    by 0x1093AC: artista_cria (Artista.c:34)
+==74901==    by 0x109B42: arquivo_ler_artista_csv (Spotify.c:84)
+==74901==    by 0x1099FA: spotify_inicia (Spotify.c:46)
+==74901==    by 0x10A64E: main (main.c:13)
+==74901== 
+==74901== 2,478,900 bytes in 49,578 blocks are still reachable in loss record 9 of 10
+==74901==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74901==    by 0x10959B: artista_le (Artista.c:84)
+==74901==    by 0x109B77: arquivo_ler_artista_csv (Spotify.c:85)
+==74901==    by 0x1099FA: spotify_inicia (Spotify.c:46)
+==74901==    by 0x10A64E: main (main.c:13)
+==74901== 
+==74901== 4,968,960 bytes in 77,640 blocks are still reachable in loss record 10 of 10
+==74901==    at 0x483DD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==74901==    by 0x109384: artista_cria (Artista.c:31)
+==74901==    by 0x109B42: arquivo_ler_artista_csv (Spotify.c:84)
+==74901==    by 0x1099FA: spotify_inicia (Spotify.c:46)
+==74901==    by 0x10A64E: main (main.c:13)
+==74901== 
+==74901== LEAK SUMMARY:
+==74901==    definitely lost: 0 bytes in 0 blocks
+==74901==    indirectly lost: 0 bytes in 0 blocks
+==74901==      possibly lost: 0 bytes in 0 blocks
+==74901==    still reachable: 10,639,764 bytes in 282,502 blocks
+==74901==         suppressed: 0 bytes in 0 blocks
+==74901== 
+==74901== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+>>>>>>> ab5e7e65f3f0d4390d276fee7b6677354b0a0734
