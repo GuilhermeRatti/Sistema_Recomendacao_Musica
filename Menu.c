@@ -19,7 +19,10 @@ enum OPCOES
 int menu_show_options(p_Spotify spotify)
 {
     int opt;
-    printf("\n\n===========\n  Spotify  \n===========\n\n");
+
+    system("clear");
+
+    printf("=====================================================\n                       Spotify\n=====================================================\n\n");
 
     printf("Digite uma das opcoes:\n");
     printf("%s%s%s%s%s%s%s%s%s",
@@ -35,6 +38,8 @@ int menu_show_options(p_Spotify spotify)
 
     printf("OPCAO: ");
     scanf("%d", &opt);
+
+    system("clear");
 
     if(opt==BUSCAR_MUSICA)
     {

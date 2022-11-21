@@ -196,8 +196,10 @@ void spotify_playlist_cria(p_Spotify spotify){
 
     spotify->vet_playlists[spotify->pls_qtd-1] = playlist_cria();
 
-    printf("\nPlaylist criada com sucesso!\n");
+    printf("\nPlaylist criada com sucesso!");
 
+    printf("\n\nPressione enter para voltar para o menu principal!");
+    scanf("%*[^\n]%*c");
 }
 
 void spotify_playlist_listar_todas(p_Spotify spotify){

@@ -25,7 +25,7 @@ p_Playlist playlist_cria(){
     char char_atual;
     int char_contador=0;
 
-    printf("\nInforme o nome desejado para a Playlist: ");
+    printf("Informe o nome desejado para a Playlist: ");
     scanf("\n%c", &char_atual);
     while (char_atual == '\n' || char_atual == ' ')
     {
@@ -59,16 +59,20 @@ void playlist_listar_todas(p_Playlist* vetor_playlists, int playlists_qtd){
 
     if (playlists_qtd == 0)
     {
-        printf("\nNao ha playlists!");
+        printf("Nao ha playlists!");
     }
     else
     {
+        printf("####################### PLAYLISTS #######################\n");
         for (i = 0; i < playlists_qtd; i++)
         {
             printf("\nPlaylist de indice %d - '%s' - Contem %d musicas!", i,vetor_playlists[i]->nome,vetor_playlists[i]->musicas_qtd);
         }
-        printf("\n");
     }
+
+    printf("\n\nPressione enter para voltar para o menu principal!");
+    fgetc(stdin);
+    scanf("%*[^\n]%*c");
 }
 
 /*
@@ -80,7 +84,7 @@ void playlist_listar_uma(p_Playlist* vetor_playlists, int playlists_qtd, p_Music
 
     if (playlists_qtd == 0)
     {
-        printf("\nNao ha playlists!\n");
+        printf("Nao ha playlists!");
     }
     else
     {
@@ -97,7 +101,7 @@ void playlist_listar_uma(p_Playlist* vetor_playlists, int playlists_qtd, p_Music
 
         if (vetor_playlists[i]->musicas_qtd == 0)
         {
-            printf("\nA playlist %d - '%s' - nao contem musicas!\n", i,vetor_playlists[i]->nome);
+            printf("\nA playlist %d - '%s' - nao contem musicas!", i,vetor_playlists[i]->nome);
         }
         else
         {
@@ -112,6 +116,10 @@ void playlist_listar_uma(p_Playlist* vetor_playlists, int playlists_qtd, p_Music
             printf("\n");
         }
     }
+
+    printf("\n\nPressione enter para voltar para o menu principal!");
+    fgetc(stdin);
+    scanf("%*[^\n]%*c");
 }
 /*
 Solicita o índice de uma música e de uma 
@@ -121,35 +129,46 @@ void playlist_adicionar_musica(p_Playlist *vet_playlists, int musicas_qtd, int p
     
     int indx_musica, indx_playlist;
 
-    printf("\nInforme o indice da musica a ser adicionada: ");
-    scanf("%d", &indx_musica);
-
-    while (indx_musica<0 || indx_musica>musicas_qtd-1)
+    if (playlists_qtd == 0)
     {
-        printf("\nNUMERO INVALIDO!\n\n");
-
-        printf("Informe o indice da musica a ser adicionada: ");
+        printf("Não ha playlists!");
+    }
+    else
+    {
+        printf("\nInforme o indice da musica a ser adicionada: ");
         scanf("%d", &indx_musica);
-        printf("\n");
-    }
 
-    printf("Informe o indice da playlist em que a musica eh adicionada: ");
-    scanf("%d", &indx_playlist);
+        while (indx_musica<0 || indx_musica>musicas_qtd-1)
+        {
+            printf("\nNUMERO INVALIDO!\n\n");
 
-    while (indx_playlist<0 || indx_playlist>playlists_qtd-1)
-    {
-        printf("\nNUMERO INVALIDO!\n\n");
+            printf("Informe o indice da musica a ser adicionada: ");
+            scanf("%d", &indx_musica);
+            printf("\n");
+        }
 
-        printf("Informe o indice da playlist a ser exibida: ");
+        printf("Informe o indice da playlist em que a musica eh adicionada: ");
         scanf("%d", &indx_playlist);
+
+        while (indx_playlist<0 || indx_playlist>playlists_qtd-1)
+        {
+            printf("\nNUMERO INVALIDO!\n\n");
+
+            printf("Informe o indice da playlist a ser exibida: ");
+            scanf("%d", &indx_playlist);
+        }
+        
+        vet_playlists[indx_playlist]->musicas_qtd++;
+        int qtd_atual = vet_playlists[indx_playlist]->musicas_qtd;
+
+        vet_playlists[indx_playlist]->vet_musicas = (int *)realloc(vet_playlists[indx_playlist]->vet_musicas, qtd_atual*sizeof(int));
+
+        vet_playlists[indx_playlist]->vet_musicas[qtd_atual-1] = indx_musica;
     }
-    
-    vet_playlists[indx_playlist]->musicas_qtd++;
-    int qtd_atual = vet_playlists[indx_playlist]->musicas_qtd;
 
-    vet_playlists[indx_playlist]->vet_musicas = (int *)realloc(vet_playlists[indx_playlist]->vet_musicas, qtd_atual*sizeof(int));
-
-    vet_playlists[indx_playlist]->vet_musicas[qtd_atual-1] = indx_musica;
+    printf("\n\nPressione enter para voltar para o menu principal!");
+    fgetc(stdin);
+    scanf("%*[^\n]%*c");
 }
 
 void playlist_destroi(p_Playlist playlist){
