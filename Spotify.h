@@ -27,6 +27,7 @@ void arquivo_ler_playlist_bin(char path[]);
 
 void arquivo_salvar_playlist_bin(char path[]);
 
+
 /*
 *    Percorre o vetor de musicas da TAD spotify
 *    Chama a funcao musica_busca_titulo() para cada uma delas
@@ -35,10 +36,11 @@ void arquivo_salvar_playlist_bin(char path[]);
 */
 void spotify_busca_musica_titulo(p_Spotify spotify, char *str);
 
-/*
-    Recebe um id (STRING) para printar a musica equivalente a aquele id
 
-    Chama funcoes para printar os atributos de musica e artista
+/*
+*    Recebe um id (STRING) para printar a musica equivalente a aquele id
+*
+*    Chama funcoes para printar os atributos de musica e artista
 */
 void spotify_lista_musica(p_Spotify spotify, int id);
 
