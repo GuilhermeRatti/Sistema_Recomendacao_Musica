@@ -17,12 +17,12 @@ double playlist_likeliness(p_Playlist playlist, p_Musica musica);
 
 p_Playlist playlist_cria();
 
-void playlist_listar_todas();
+void playlist_listar_todas(p_Playlist* vetor_playlists, int playlists_qtd);
 
-void playlist_listar_uma();
+void playlist_listar_uma(p_Playlist* vetor_playlists, int playlists_qtd, p_Musica* vetor_musicas);
 
-void playlist_adicionar_musica();
+void playlist_adicionar_musica(p_Playlist *vet_playlists, int musicas_qtd, int playlists_qtd);
 
-void playlist_destroi();
+void playlist_destroi(p_Playlist playlist);
 
 #endif

@@ -46,6 +46,26 @@ int menu_show_options(p_Spotify spotify)
         menu_lista_musica(spotify);
         return 1;
     }
+    else if (opt == CRIAR_PLAYLIST)
+    {
+        menu_playlist_cria(spotify);
+        return 1;
+    }
+    else if (opt == LISTAR_TODAS_PLAYLISTS)
+    {
+        menu_playlist_listar_todas(spotify);
+        return 1;
+    }
+    else if (opt == LISTAR_PLAYLIST)
+    {
+        menu_playlist_listar_uma(spotify);
+        return 1;
+    }
+    else if (opt == ADICIONAR_MSC_PLAYLIST)
+    {
+        menu_playlist_adicionar_musica(spotify);
+        return 1;
+    }
     else
     {
         return 0;
@@ -91,4 +111,20 @@ void menu_lista_musica(p_Spotify spotify)
 
 
     spotify_lista_musica(spotify,id_no_vet);
+}
+
+void menu_playlist_cria(p_Spotify spotify){
+    spotify_playlist_cria(spotify);
+}
+
+void menu_playlist_listar_todas(p_Spotify spotify){
+    spotify_playlist_listar_todas(spotify);
+}
+
+void menu_playlist_listar_uma(p_Spotify spotify){
+    spotify_playlist_listar_uma(spotify);
+}
+
+void menu_playlist_adicionar_musica(p_Spotify spotify){
+    spotify_playlist_adicionar_musica(spotify);
 }

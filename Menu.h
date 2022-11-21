@@ -24,4 +24,13 @@ void menu_buscar_musica(p_Spotify spotify);
 */
 void menu_lista_musica(p_Spotify spotify);
 
+
+void menu_playlist_cria(p_Spotify spotify);
+
+void menu_playlist_listar_todas(p_Spotify spotify);
+
+void menu_playlist_listar_uma(p_Spotify spotify);
+
+void menu_playlist_adicionar_musica(p_Spotify spotify);
+
 #endif

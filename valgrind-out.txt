@@ -1,3 +1,19 @@
+<<<<<<< HEAD
+==27276== Memcheck, a memory error detector
+==27276== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==27276== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==27276== Command: ./main data
+==27276== Parent PID: 27275
+==27276== 
+==27276== 
+==27276== HEAP SUMMARY:
+==27276==     in use at exit: 0 bytes in 0 blocks
+==27276==   total heap usage: 9,758,824 allocs, 9,758,824 frees, 346,520,334 bytes allocated
+==27276== 
+==27276== All heap blocks were freed -- no leaks are possible
+==27276== 
+==27276== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+=======
 ==74901== Memcheck, a memory error detector
 ==74901== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
 ==74901== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
@@ -93,3 +109,4 @@
 ==74901==         suppressed: 0 bytes in 0 blocks
 ==74901== 
 ==74901== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+>>>>>>> ab5e7e65f3f0d4390d276fee7b6677354b0a0734
