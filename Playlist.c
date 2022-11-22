@@ -146,7 +146,7 @@ void playlist_adicionar_musica(p_Playlist *vet_playlists, int musicas_qtd, int p
             scanf("%d", &indx_musica);
             printf("\n");
         }
-
+        
         printf("Informe o indice da playlist em que a musica eh adicionada: ");
         scanf("%d", &indx_playlist);
 
@@ -158,12 +158,33 @@ void playlist_adicionar_musica(p_Playlist *vet_playlists, int musicas_qtd, int p
             scanf("%d", &indx_playlist);
         }
         
-        vet_playlists[indx_playlist]->musicas_qtd++;
-        int qtd_atual = vet_playlists[indx_playlist]->musicas_qtd;
+        //verificacao de musica ja adicionada
+        int i, flag_ja_adicionada=0;
+        for (i = 0; i < vet_playlists[indx_playlist]->musicas_qtd; i++)
+        {
+            if (vet_playlists[indx_playlist]->vet_musicas[i] == indx_musica)
+            {
+                flag_ja_adicionada = 1;
+                break;
+            }
+            
+        }
+        
+        if (flag_ja_adicionada)
+        {
+            printf("\nMusica já adicionada!");
+        }
+        else
+        {
+            vet_playlists[indx_playlist]->musicas_qtd++;
+            int qtd_atual = vet_playlists[indx_playlist]->musicas_qtd;
 
-        vet_playlists[indx_playlist]->vet_musicas = (int *)realloc(vet_playlists[indx_playlist]->vet_musicas, qtd_atual*sizeof(int));
+            vet_playlists[indx_playlist]->vet_musicas = (int *)realloc(vet_playlists[indx_playlist]->vet_musicas, qtd_atual*sizeof(int));
 
-        vet_playlists[indx_playlist]->vet_musicas[qtd_atual-1] = indx_musica;
+            vet_playlists[indx_playlist]->vet_musicas[qtd_atual-1] = indx_musica;
+            
+            printf("\nMusica adicionada com sucesso!");
+        }
     }
 
     printf("\n\nPressione enter para voltar para o menu principal!");

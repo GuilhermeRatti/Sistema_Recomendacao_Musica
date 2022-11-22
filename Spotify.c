@@ -214,6 +214,11 @@ void spotify_playlist_adicionar_musica(p_Spotify spotify){
     playlist_adicionar_musica(spotify->vet_playlists, spotify->msc_qtd, spotify->pls_qtd);
 }
 
+void spotify_gerar_relatorio(){
+    
+}
+
+
 void spotify_destroi(p_Spotify spotify){
     for(int i = 0; i<spotify->art_qtd; i++)
     { 
