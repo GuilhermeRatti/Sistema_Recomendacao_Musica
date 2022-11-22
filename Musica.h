@@ -36,12 +36,20 @@ void musica_imprime_informacoes(p_Musica musica, int id_no_vet);
 
 
 /*******************************************************************************************
-*    Funcao que ira alterar a variavel artistas_out por referencia para que
+*    Funcao que ira alterar a variavel artistas_id_out por referencia para que
 *    seja possivel retornar varios resultados (vetor de ids - que sao strings - de artistas)
 *
 *    Retorna um inteiro sendo a quantidade de artistas
 ********************************************************************************************/
-int musica_retorna_id_artistas(p_Musica musica, char ***artistas_out);
+int musica_retorna_id_artistas(p_Musica musica, char ***artistas_id_out);
+
+/*******************************************************************************************
+*    Funcao que ira alterar a variavel artistas_nome_out por referencia para que
+*    seja possivel retornar varios resultados (vetor de nomes - que sao strings - de artistas)
+*
+*    Retorna um inteiro sendo a quantidade de artistas
+********************************************************************************************/
+int musica_retorna_nome_artistas(p_Musica musica, char ***artistas_nome_out);
 
 
 /************************************************************************************************
@@ -69,6 +77,12 @@ char *musica_retorna_id(p_Musica musica);
 ****************************************************/
 char *musica_retorna_nome(p_Musica musica);
 
+/*********************************************************************
+*    Funcao que retorna a quantidade de artistas da musica requisitada
+*
+*    A variavel retornada eh um inteiro
+**********************************************************************/
+int musica_retorna_qtd_artistas(p_Musica musica);
 
 /*****************************************************
 *    Recebe um ponteiro de musica como parametro

@@ -218,14 +218,14 @@ void spotify_gerar_relatorio(p_Spotify spotify){
 
     if (spotify->pls_qtd == 0)
     {
-        printf("Nao ha playlists!");
+        printf("Nao ha playlists!\n");
     }
     else
     {
         playlist_gerar_relatorio_musicas(spotify->vet_playlists, spotify->pls_qtd, spotify->vet_musicas);
         playlist_gerar_relatorio_artistas(spotify->vet_playlists, spotify->pls_qtd, spotify->vet_musicas);
     }
-    printf("\n\nPressione enter para voltar para o menu principal!");
+    printf("\nPressione enter para voltar para o menu principal!");
     fgetc(stdin);
     scanf("%*[^\n]%*c");
 }
