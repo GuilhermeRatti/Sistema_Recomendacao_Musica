@@ -94,7 +94,7 @@ void arquivo_ler_artista_csv(p_Spotify spotify, char path[])
 
 void arquivo_ler_musica_csv(p_Spotify spotify, char path[]){
     char caminho[1000];
-    sprintf(caminho,"%s/tracks_full.csv", path);
+    sprintf(caminho,"%s/tracks_2.csv", path);
     FILE* msccsv = fopen(caminho,"r");
 
     if(!msccsv)
