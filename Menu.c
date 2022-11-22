@@ -72,7 +72,7 @@ int menu_show_options(p_Spotify spotify)
     }
     else if (opt == RELATORIO)
     {
-        menu_playlist_adicionar_musica(spotify);
+        menu_gerar_relatorio(spotify);
         return 1;
     }
     else

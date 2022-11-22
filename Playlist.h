@@ -23,6 +23,10 @@ void playlist_listar_uma(p_Playlist* vetor_playlists, int playlists_qtd, p_Music
 
 void playlist_adicionar_musica(p_Playlist *vet_playlists, int musicas_qtd, int playlists_qtd);
 
+void playlist_gerar_relatorio_musicas(p_Playlist *vet_playlists, int playlists_qtd, p_Musica *vet_musicas);
+
+void playlist_gerar_relatorio_artistas(p_Playlist * vet_playlists, int playlists_qtd, p_Musica *vet_musicas);
+
 void playlist_destroi(p_Playlist playlist);
 
 #endif

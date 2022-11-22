@@ -214,8 +214,20 @@ void spotify_playlist_adicionar_musica(p_Spotify spotify){
     playlist_adicionar_musica(spotify->vet_playlists, spotify->msc_qtd, spotify->pls_qtd);
 }
 
-void spotify_gerar_relatorio(){
-    
+void spotify_gerar_relatorio(p_Spotify spotify){
+
+    if (spotify->pls_qtd == 0)
+    {
+        printf("Nao ha playlists!");
+    }
+    else
+    {
+        playlist_gerar_relatorio_musicas(spotify->vet_playlists, spotify->pls_qtd, spotify->vet_musicas);
+        playlist_gerar_relatorio_artistas(spotify->vet_playlists, spotify->pls_qtd, spotify->vet_musicas);
+    }
+    printf("\n\nPressione enter para voltar para o menu principal!");
+    fgetc(stdin);
+    scanf("%*[^\n]%*c");
 }
 
 

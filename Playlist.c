@@ -3,6 +3,7 @@
 #include "Playlist.h"
 #include "Musica.h"
 #include "Propriedades.h"
+#include "Spotify.h"
 
 #define valor_alloc_nome 20
 
@@ -172,7 +173,7 @@ void playlist_adicionar_musica(p_Playlist *vet_playlists, int musicas_qtd, int p
         
         if (flag_ja_adicionada)
         {
-            printf("\nMusica já adicionada!");
+            printf("\nMusica ja adicionada!");
         }
         else
         {
@@ -191,6 +192,102 @@ void playlist_adicionar_musica(p_Playlist *vet_playlists, int musicas_qtd, int p
     fgetc(stdin);
     scanf("%*[^\n]%*c");
 }
+
+void playlist_gerar_relatorio_musicas(p_Playlist *vet_playlists, int playlists_qtd, p_Musica *vet_musicas){
+    int i, j, k, musicas_relatorio_qtd=0, flag_adicionada=0;
+
+    int *musicas_indx = calloc(0, sizeof(int));
+    int *musicas_aparicoes = calloc(0, sizeof(int));
+    
+    for (i = 0; i < playlists_qtd; i++)
+    {
+        for (j = 0; j < vet_playlists[i]->musicas_qtd; j++)
+        {        
+            flag_adicionada = 0;
+
+            for (k = 0; k < musicas_relatorio_qtd; k++)
+            {
+                if (vet_playlists[i]->vet_musicas[j] == musicas_indx[k])
+                {
+                    musicas_aparicoes[k]++;
+                    flag_adicionada = 1;
+                    break;
+                }
+            }
+
+            if (!flag_adicionada)
+            {
+                musicas_relatorio_qtd++;
+                musicas_indx = realloc(musicas_indx, musicas_relatorio_qtd*sizeof(int));
+                musicas_aparicoes = realloc(musicas_aparicoes, musicas_relatorio_qtd*sizeof(int));
+
+                musicas_indx[musicas_relatorio_qtd-1] = vet_playlists[i]->vet_musicas[j];
+                musicas_aparicoes[musicas_relatorio_qtd-1] = 1;
+            }   
+        }
+    }
+    
+    if(musicas_relatorio_qtd == 0){
+        printf("Nao ha musicas em nenhuma playlist...\nRelatorio de musicas cancelado!");
+    }
+    else
+    {
+        FILE *relatorio_musicas = fopen("Relatorio_Playlists_Musicas.txt", "w");    
+
+        int primeira_maior_aparicao=0;
+        int segunda_maior_aparicao=0;
+        int proxima_maior_aparicao=0;
+
+        for (i = 0; i < musicas_relatorio_qtd; i++)
+        {
+            if (primeira_maior_aparicao < musicas_aparicoes[i])
+            {
+                primeira_maior_aparicao = musicas_aparicoes[i];
+            }
+            else if (segunda_maior_aparicao < musicas_aparicoes[i] && musicas_aparicoes[i] < primeira_maior_aparicao)
+            {
+                segunda_maior_aparicao = musicas_aparicoes[i];
+            }
+        }
+        
+        fprintf(relatorio_musicas, "==========================================Relatorio das Musicas==========================================\n\n");
+
+        do
+        {
+            proxima_maior_aparicao = segunda_maior_aparicao;
+            segunda_maior_aparicao = 0;
+
+            for (i = 0; i < musicas_relatorio_qtd; i++)
+            {
+                if (primeira_maior_aparicao == musicas_aparicoes[i])
+                {
+                    fprintf(relatorio_musicas, "> Existem %d playlists contem a musica '%s'.\n", musicas_aparicoes[i], musica_retorna_nome(vet_musicas[musicas_indx[i]]));
+                }
+                else if (segunda_maior_aparicao < musicas_aparicoes[i] && musicas_aparicoes[i] < proxima_maior_aparicao)
+                {
+                    segunda_maior_aparicao = musicas_aparicoes[i];
+                }
+            }
+            primeira_maior_aparicao = proxima_maior_aparicao;
+        } while (proxima_maior_aparicao != 0); 
+
+        fclose(relatorio_musicas); 
+
+        printf("Relatorio gerado com sucesso!");
+    }
+
+
+
+    
+    free(musicas_indx);
+    free(musicas_aparicoes);
+   
+}
+
+void playlist_gerar_relatorio_artistas(p_Playlist * vet_playlists, int playlists_qtd, p_Musica *vet_musicas){
+
+}
+
 
 void playlist_destroi(p_Playlist playlist){
     free(playlist->nome);
