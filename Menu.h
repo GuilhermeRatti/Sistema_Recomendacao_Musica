@@ -44,4 +44,6 @@ void menu_playlist_listar_uma(p_Spotify spotify);
 
 void menu_playlist_adicionar_musica(p_Spotify spotify);
 
+
+void menu_gerar_relatorio();
 #endif

@@ -52,6 +52,8 @@ void spotify_playlist_listar_uma(p_Spotify spotify);
 
 void spotify_playlist_adicionar_musica(p_Spotify spotify);
 
+void spotify_gerar_relatorio(p_Spotify spotify);
+
 void spotify_destroi(p_Spotify spotify);
 
 #endif

@@ -18,25 +18,24 @@ enum OPCOES
 
 int menu_show_options(p_Spotify spotify)
 {
-    int opt;
+    int opt=0;
 
     system("clear");
 
     printf("=====================================================\n                       Spotify\n=====================================================\n\n");
 
-    printf("Digite uma das opcoes:\n");
     printf("%s%s%s%s%s%s%s%s%s",
-            "   1 - Buscar musica\n",
-            "   2 - Listar uma musica\n",
-            "   3 - Criar uma playlist\n",
-            "   4 - Listar playlists\n",
-            "   5 - Listar uma playlist\n",
-            "   6 - Adicionar uma musica na playlist\n",
-            "   7 - Recomendar musicas parecidas com uma playlist\n",
-            "   8 - Gerar Relatorio\n",
-            "   0 - Finalizar o programa\n\n");
+            "  1 - Buscar musica\n",
+            "  2 - Listar uma musica\n",
+            "  3 - Criar uma playlist\n",
+            "  4 - Listar playlists\n",
+            "  5 - Listar uma playlist\n",
+            "  6 - Adicionar uma musica na playlist\n",
+            "  7 - Recomendar musicas parecidas com uma playlist\n",
+            "  8 - Gerar Relatorio\n",
+            "  0 - Finalizar o programa\n\n");
 
-    printf("OPCAO: ");
+    printf("Escolha uma das opcoes: ");
     scanf("%d", &opt);
 
     system("clear");
@@ -69,6 +68,11 @@ int menu_show_options(p_Spotify spotify)
     else if (opt == ADICIONAR_MSC_PLAYLIST)
     {
         menu_playlist_adicionar_musica(spotify);
+        return 1;
+    }
+    else if (opt == RELATORIO)
+    {
+        menu_gerar_relatorio(spotify);
         return 1;
     }
     else
@@ -132,4 +136,8 @@ void menu_playlist_listar_uma(p_Spotify spotify){
 
 void menu_playlist_adicionar_musica(p_Spotify spotify){
     spotify_playlist_adicionar_musica(spotify);
+}
+
+void menu_gerar_relatorio(p_Spotify spotify){
+    spotify_gerar_relatorio(spotify);
 }

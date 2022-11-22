@@ -249,9 +249,15 @@ void musica_imprime_artista_inexistente(p_Musica musica,int index)
     printf("|#      => Nenhuma informacao foi encontrada sobre esse artista :(\n");
 }
 
-int musica_retorna_id_artistas(p_Musica musica, char ***artistas_out)
+int musica_retorna_id_artistas(p_Musica musica, char ***artistas_id_out)
 {
-    (*artistas_out) = musica->vet_art_id;
+    (*artistas_id_out) = musica->vet_art_id;
+    return musica->artistas_qtd;
+}
+
+int musica_retorna_nome_artistas(p_Musica musica, char ***artistas_nome_out)
+{
+    (*artistas_nome_out) = musica->vet_art_nome;
     return musica->artistas_qtd;
 }
 
@@ -261,6 +267,10 @@ char *musica_retorna_id(p_Musica musica){
 
 char *musica_retorna_nome(p_Musica musica){
     return musica->nome;
+}
+
+int musica_retorna_qtd_artistas(p_Musica musica){
+    return musica->artistas_qtd;
 }
 
 void musica_destroi(p_Musica musica)

@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "Playlist.h"
 #include "Musica.h"
 #include "Propriedades.h"
+#include "Spotify.h"
 
 #define valor_alloc_nome 20
 
@@ -146,7 +148,7 @@ void playlist_adicionar_musica(p_Playlist *vet_playlists, int musicas_qtd, int p
             scanf("%d", &indx_musica);
             printf("\n");
         }
-
+        
         printf("Informe o indice da playlist em que a musica eh adicionada: ");
         scanf("%d", &indx_playlist);
 
@@ -158,18 +160,230 @@ void playlist_adicionar_musica(p_Playlist *vet_playlists, int musicas_qtd, int p
             scanf("%d", &indx_playlist);
         }
         
-        vet_playlists[indx_playlist]->musicas_qtd++;
-        int qtd_atual = vet_playlists[indx_playlist]->musicas_qtd;
+        //verificacao de musica ja adicionada
+        int i, flag_ja_adicionada=0;
+        for (i = 0; i < vet_playlists[indx_playlist]->musicas_qtd; i++)
+        {
+            if (vet_playlists[indx_playlist]->vet_musicas[i] == indx_musica)
+            {
+                flag_ja_adicionada = 1;
+                break;
+            }
+            
+        }
+        
+        if (flag_ja_adicionada)
+        {
+            printf("\nMusica ja adicionada!");
+        }
+        else
+        {
+            vet_playlists[indx_playlist]->musicas_qtd++;
+            int qtd_atual = vet_playlists[indx_playlist]->musicas_qtd;
 
-        vet_playlists[indx_playlist]->vet_musicas = (int *)realloc(vet_playlists[indx_playlist]->vet_musicas, qtd_atual*sizeof(int));
+            vet_playlists[indx_playlist]->vet_musicas = (int *)realloc(vet_playlists[indx_playlist]->vet_musicas, qtd_atual*sizeof(int));
 
-        vet_playlists[indx_playlist]->vet_musicas[qtd_atual-1] = indx_musica;
+            vet_playlists[indx_playlist]->vet_musicas[qtd_atual-1] = indx_musica;
+            
+            printf("\nMusica adicionada com sucesso!");
+        }
     }
 
     printf("\n\nPressione enter para voltar para o menu principal!");
     fgetc(stdin);
     scanf("%*[^\n]%*c");
 }
+
+void playlist_gerar_relatorio_musicas(p_Playlist *vet_playlists, int playlists_qtd, p_Musica *vet_musicas){
+    int i, j, k, musicas_relatorio_qtd=0, flag_adicionada=0;
+
+    int *musicas_indx = calloc(0, sizeof(int));
+    int *musicas_aparicoes = calloc(0, sizeof(int));
+    
+    for (i = 0; i < playlists_qtd; i++)
+    {
+        for (j = 0; j < vet_playlists[i]->musicas_qtd; j++)
+        {        
+            flag_adicionada = 0;
+
+            for (k = 0; k < musicas_relatorio_qtd; k++)
+            {
+                if (vet_playlists[i]->vet_musicas[j] == musicas_indx[k])
+                {
+                    musicas_aparicoes[k]++;
+                    flag_adicionada = 1;
+                    break;
+                }
+            }
+
+            if (!flag_adicionada)
+            {
+                musicas_relatorio_qtd++;
+                musicas_indx = realloc(musicas_indx, musicas_relatorio_qtd*sizeof(int));
+                musicas_aparicoes = realloc(musicas_aparicoes, musicas_relatorio_qtd*sizeof(int));
+
+                musicas_indx[musicas_relatorio_qtd-1] = vet_playlists[i]->vet_musicas[j];
+                musicas_aparicoes[musicas_relatorio_qtd-1] = 1;
+            }   
+        }
+    }
+    
+    if(musicas_relatorio_qtd == 0){
+        printf("Nao ha musicas em nenhuma playlist...\nRelatorio de musicas cancelado!\n\n");
+    }
+    else
+    {
+        FILE *relatorio_musicas = fopen("Relatorio_Playlists_Musicas.txt", "w");    
+
+        int primeira_maior_aparicao=0;
+        int segunda_maior_aparicao=0;
+        int proxima_maior_aparicao=0;
+
+        for (i = 0; i < musicas_relatorio_qtd; i++)
+        {
+            if (primeira_maior_aparicao < musicas_aparicoes[i])
+            {
+                segunda_maior_aparicao = primeira_maior_aparicao;
+                primeira_maior_aparicao = musicas_aparicoes[i];
+            }
+        }
+        
+        fprintf(relatorio_musicas, "==========================================Relatorio das Musicas==========================================\n\n");
+
+        do
+        {
+            proxima_maior_aparicao = segunda_maior_aparicao;
+            segunda_maior_aparicao = 0;
+
+            for (i = 0; i < musicas_relatorio_qtd; i++)
+            {
+                if (primeira_maior_aparicao == musicas_aparicoes[i])
+                {
+                    fprintf(relatorio_musicas, "> Existem %d playlists contem a musica '%s'.\n", musicas_aparicoes[i], musica_retorna_nome(vet_musicas[musicas_indx[i]]));
+                }
+                else if (segunda_maior_aparicao < musicas_aparicoes[i] && musicas_aparicoes[i] < proxima_maior_aparicao)
+                {
+                    segunda_maior_aparicao = musicas_aparicoes[i];
+                }
+            }
+            primeira_maior_aparicao = proxima_maior_aparicao;
+        } while (proxima_maior_aparicao != 0); 
+
+        printf("Relatorio de musicas gerado com sucesso!\n");
+
+        fclose(relatorio_musicas); 
+
+    }
+    
+    free(musicas_indx);
+    free(musicas_aparicoes);
+   
+}
+
+void playlist_gerar_relatorio_artistas(p_Playlist * vet_playlists, int playlists_qtd, p_Musica *vet_musicas_spotify){
+    int i, j, k, l, artistas_relatorio_qtd=0, flag_adicionada=0, playlist_musica_artistas_qtd=0, musica_atual_id=0;
+
+    char **artistas_id = calloc(0, sizeof(char*));
+    char **artistas_nome = calloc(0, sizeof(char*));
+    int *artistas_aparicoes = calloc(0, sizeof(int));
+    
+    char **vet_playlist_artistas_ids;
+    char **vet_playlist_artistas_nomes;
+
+    //para cada playlist
+    for (i = 0; i < playlists_qtd; i++)
+    {
+        //para cada musica na playlist
+        for (j = 0; j < vet_playlists[i]->musicas_qtd; j++)
+        {   
+            musica_atual_id = vet_playlists[i]->vet_musicas[j];
+            
+            playlist_musica_artistas_qtd = musica_retorna_id_artistas(vet_musicas_spotify[musica_atual_id], &vet_playlist_artistas_ids);
+            musica_retorna_nome_artistas(vet_musicas_spotify[musica_atual_id], &vet_playlist_artistas_nomes);
+
+            //para cada artista nas musicas da playlist
+            for (k = 0; k < playlist_musica_artistas_qtd; k++)
+            {
+                flag_adicionada = 0;
+
+                for (l = 0; l < artistas_relatorio_qtd; l++)
+                {
+                    if (strcmp(vet_playlist_artistas_ids[k], artistas_id[l]) == 0)
+                    {
+                        artistas_aparicoes[l]++;
+                        flag_adicionada = 1;
+                        break;
+                    }
+                }
+
+                if (!flag_adicionada)
+                {
+                    artistas_relatorio_qtd++;
+                    artistas_id = realloc(artistas_id, artistas_relatorio_qtd*sizeof(char*));
+                    artistas_nome = realloc(artistas_nome, artistas_relatorio_qtd*sizeof(char*));
+                    artistas_aparicoes = realloc(artistas_aparicoes, artistas_relatorio_qtd*sizeof(int));
+
+                    artistas_id[artistas_relatorio_qtd-1] = vet_playlist_artistas_ids[k];
+                    artistas_nome[artistas_relatorio_qtd-1] = vet_playlist_artistas_nomes[k];
+                    artistas_aparicoes[artistas_relatorio_qtd-1] = 1;
+                }  
+            } 
+        }
+    }
+    
+    if(artistas_relatorio_qtd == 0){
+        printf("Nao ha musicas em nenhuma playlist...\nRelatorio de artistas cancelado!\n\n");
+    }
+    else
+    {
+        FILE *relatorio_artistas = fopen("Relatorio_Playlists_Artistas.txt", "w");    
+
+        int primeira_maior_aparicao=0;
+        int segunda_maior_aparicao=0;
+        int proxima_maior_aparicao=0;
+
+        for (i = 0; i < artistas_relatorio_qtd; i++)
+        {
+            if (primeira_maior_aparicao < artistas_aparicoes[i])
+            {
+                segunda_maior_aparicao = primeira_maior_aparicao;
+                primeira_maior_aparicao = artistas_aparicoes[i];
+            }
+        }
+        
+        fprintf(relatorio_artistas, "==========================================Relatorio de Artistas==========================================\n\n");
+
+        do
+        {
+            proxima_maior_aparicao = segunda_maior_aparicao;
+            segunda_maior_aparicao = 0;
+
+            for (i = 0; i < artistas_relatorio_qtd; i++)
+            {
+                if (primeira_maior_aparicao == artistas_aparicoes[i])
+                {
+                    fprintf(relatorio_artistas, "> Estão adicionadas em playlist %d musicas que mencionam '%s' [%s]\n", artistas_aparicoes[i], artistas_nome[i], artistas_id[i]);
+                }
+                if (segunda_maior_aparicao < artistas_aparicoes[i] && artistas_aparicoes[i] < proxima_maior_aparicao)
+                {
+                    segunda_maior_aparicao = artistas_aparicoes[i];
+                }
+            }
+            primeira_maior_aparicao = proxima_maior_aparicao;
+        } while (proxima_maior_aparicao != 0); 
+
+        fclose(relatorio_artistas); 
+        
+        printf("Relatorio de artistas gerado com sucesso!\n");
+
+    }
+    
+    free(artistas_id);
+    free(artistas_nome);
+    free(artistas_aparicoes);
+   
+}
+
 
 void playlist_destroi(p_Playlist playlist){
     free(playlist->nome);
