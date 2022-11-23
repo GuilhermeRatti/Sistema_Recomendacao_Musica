@@ -135,10 +135,10 @@ int artista_compara_id(p_Artista artista, char *id, int *achou)
 void artista_imprime(p_Artista artista)
 {
     printf("|#   %s\n",artista->nome);
-    printf("|#      => Id: %s\n", artista->id);
-    printf("|#      => Seguidores: %d\n", artista->seguidores);
+    printf("|#      --> Id: %s\n", artista->id);
+    printf("|#      --> Seguidores: %d\n", artista->seguidores);
     
-    printf("|#      => Generos: ");
+    printf("|#      --> Generos: ");
     // Loop que vai printar todos os generos do artista
     int i=0;
     for(i=0;i<artista->generos_qtd;i++)
@@ -152,7 +152,7 @@ void artista_imprime(p_Artista artista)
         printf("Esse artista nao possui genero registrado!");
     printf("\n");
 
-    printf("|#      => Popularidade: %d\n", artista->popularidade);
+    printf("|#      --> Popularidade: %d\n", artista->popularidade);
 }
 
 void artista_destroi(p_Artista artista)

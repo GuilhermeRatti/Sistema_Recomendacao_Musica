@@ -1,13 +1,12 @@
 #ifndef _PLAYLIST_H_
 #define _PLAYLIST_H_
 #include "Musica.h"
+#include "Propriedades.h"
 
 typedef struct Playlist *p_Playlist;
 
 /***************************************************************************************
 *    Recebe como parametro o ponteiro de uma PLAYLIST e de uma MUSICA
-*
-*    Vai utilizar a funcao propriedade_media_playlist para calcular a media da playlist
 *
 *    A partir da media da playlist vai calcular a DISTANCIA EUCLIDIANA
 *
@@ -26,6 +25,15 @@ void playlist_adicionar_musica(p_Playlist *vet_playlists, int musicas_qtd, int p
 void playlist_gerar_relatorio_musicas(p_Playlist *vet_playlists, int playlists_qtd, p_Musica *vet_musicas);
 
 void playlist_gerar_relatorio_artistas(p_Playlist * vet_playlists, int playlists_qtd, p_Musica *vet_musicas);
+
+/*
+    Verifica se a musica esta inclusa na playlist
+
+    Retorna 1 (True) se estiver, e 0 (False) se nao estiver
+*/
+int playlist_verifica_se_esta_incluso(p_Playlist playlist, int indice);
+
+p_Propriedades playlist_retorna_media_propriedades(p_Playlist playlist, p_Musica *vet_musicas);
 
 void playlist_destroi(p_Playlist playlist);
 

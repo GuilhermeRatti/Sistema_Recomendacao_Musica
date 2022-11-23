@@ -10,40 +10,19 @@
 *************************************************************/
 int menu_show_options(p_Spotify spotify);
 
-
-/***************************************************************************************
-*    Funcao que envia o chamado de buscar musicas por titulo para a biblioteca spotify.h
-*
-*    Nao retorna nada
-****************************************************************************************/
 void menu_buscar_musica(p_Spotify spotify);
 
-
-/************************************************************************
-*    Funcao que envia o chamado de buscar uma musica por indice de vetor
-*
-*    Nao retorna nada
-*************************************************************************/
 void menu_lista_musica(p_Spotify spotify);
 
-
-/*****************************************************************
-*    Funcao que envia o chamado de criar uma playlist pro spotify
-*
-*    Nao retorna nada
-******************************************************************/
 void menu_playlist_cria(p_Spotify spotify);
 
-
-/*
-
-*/
 void menu_playlist_listar_todas(p_Spotify spotify);
 
 void menu_playlist_listar_uma(p_Spotify spotify);
 
 void menu_playlist_adicionar_musica(p_Spotify spotify);
 
+void menu_gerar_relatorio(p_Spotify spotify);
 
-void menu_gerar_relatorio();
+void menu_recomendar(p_Spotify spotify);
 #endif

@@ -133,7 +133,7 @@ void playlist_adicionar_musica(p_Playlist *vet_playlists, int musicas_qtd, int p
 
     if (playlists_qtd == 0)
     {
-        printf("Não ha playlists!");
+        printf("Nao ha playlists!");
     }
     else
     {
@@ -156,7 +156,7 @@ void playlist_adicionar_musica(p_Playlist *vet_playlists, int musicas_qtd, int p
         {
             printf("\nNUMERO INVALIDO!\n\n");
 
-            printf("Informe o indice da playlist a ser exibida: ");
+            printf("Informe o indice da playlist em que a musica eh adicionada: ");
             scanf("%d", &indx_playlist);
         }
         
@@ -384,6 +384,30 @@ void playlist_gerar_relatorio_artistas(p_Playlist * vet_playlists, int playlists
    
 }
 
+int playlist_verifica_se_esta_incluso(p_Playlist playlist, int indice)
+{
+    int i;
+    for(i=0;i<playlist->musicas_qtd;i++)
+    {
+        if(playlist->vet_musicas[i]==indice)
+            return 1;
+    }
+    return 0;
+}
+
+p_Propriedades playlist_retorna_media_propriedades(p_Playlist playlist, p_Musica *vet_musica)
+{
+    p_Propriedades vet_propriedades[playlist->musicas_qtd];
+    int i;
+    for(i=0;i<playlist->musicas_qtd;i++)
+    {
+        vet_propriedades[i] = musica_retorna_propriedade(vet_musica[playlist->vet_musicas[i]]);
+    }
+    
+    p_Propriedades media = propriedade_media_playlist(vet_propriedades,playlist->musicas_qtd);
+
+    return media;
+}
 
 void playlist_destroi(p_Playlist playlist){
     free(playlist->nome);

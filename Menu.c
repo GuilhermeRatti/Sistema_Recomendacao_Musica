@@ -70,6 +70,11 @@ int menu_show_options(p_Spotify spotify)
         menu_playlist_adicionar_musica(spotify);
         return 1;
     }
+    else if(opt == RECOMENDAR_MUSICA)
+    {
+        menu_recomendar(spotify);
+        return 1;
+    }
     else if (opt == RELATORIO)
     {
         menu_gerar_relatorio(spotify);
@@ -83,31 +88,7 @@ int menu_show_options(p_Spotify spotify)
 
 void menu_buscar_musica(p_Spotify spotify)
 {
-    char *str;
-    char ch;
-    int tam_text=0,tam_allc=30;
-    printf("Digite o que deseja buscar em musicas: ");
-    str = (char*)calloc(1,sizeof(char)*tam_allc);
-
-    // While para ler o texto digitado caractere por caractere para
-    // Possibilitar realocacao de espaco quando necessario
-    scanf("\n%c", &ch);
-    while (ch!='\n')
-    {
-        if((tam_text+1)==tam_allc)
-        {
-            tam_allc*=2;
-            str = (char*)realloc(str,sizeof(char)*tam_allc);
-        }
-
-        str[tam_text] = ch;
-        tam_text++;
-        scanf("%c", &ch);
-    }
-    
-    spotify_busca_musica_titulo(spotify,str);
-
-    free(str);
+    spotify_busca_musica_titulo(spotify);
 }
 
 void menu_lista_musica(p_Spotify spotify)
@@ -122,22 +103,32 @@ void menu_lista_musica(p_Spotify spotify)
     spotify_lista_musica(spotify,id_no_vet);
 }
 
-void menu_playlist_cria(p_Spotify spotify){
+void menu_playlist_cria(p_Spotify spotify)
+{
     spotify_playlist_cria(spotify);
 }
 
-void menu_playlist_listar_todas(p_Spotify spotify){
+void menu_playlist_listar_todas(p_Spotify spotify)
+{
     spotify_playlist_listar_todas(spotify);
 }
 
-void menu_playlist_listar_uma(p_Spotify spotify){
+void menu_playlist_listar_uma(p_Spotify spotify)
+{
     spotify_playlist_listar_uma(spotify);
 }
 
-void menu_playlist_adicionar_musica(p_Spotify spotify){
+void menu_playlist_adicionar_musica(p_Spotify spotify)
+{
     spotify_playlist_adicionar_musica(spotify);
 }
 
-void menu_gerar_relatorio(p_Spotify spotify){
+void menu_gerar_relatorio(p_Spotify spotify)
+{
     spotify_gerar_relatorio(spotify);
+}
+
+void menu_recomendar(p_Spotify spotify)
+{
+    spotify_recomendar_musicas(spotify);
 }

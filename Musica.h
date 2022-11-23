@@ -34,7 +34,6 @@ void musica_busca_titulo(p_Musica musica, char *str, int id_no_vet);
 **************************************************************************************/
 void musica_imprime_informacoes(p_Musica musica, int id_no_vet);
 
-
 /*******************************************************************************************
 *    Funcao que ira alterar a variavel artistas_id_out por referencia para que
 *    seja possivel retornar varios resultados (vetor de ids - que sao strings - de artistas)
@@ -89,8 +88,7 @@ int musica_retorna_qtd_artistas(p_Musica musica);
 *    
 *    Retorna o PONTEIRO de PROPRIEDADE daquela musica
 ******************************************************/
-p_Propriedades musica_propriedade_get(p_Musica musica);
-
+p_Propriedades musica_retorna_propriedade(p_Musica musica);
 
 void musica_destroi(p_Musica musica);
 

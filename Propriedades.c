@@ -3,6 +3,7 @@
 #include <string.h>
 #include "Propriedades.h"
 #include "Musica.h"
+#include <math.h>
 
 struct Propriedades
 {
@@ -73,22 +74,52 @@ void propriedades_imprime(p_Propriedades props){
 void propriedades_destroi(p_Propriedades props){
     free(props);
 }
-/*
-danceability: [0, 1]
-energy: [0, 1]
-key: nota maior [0: C, 1: C#/Db, 2: D, …]
-loudness: em db
-mode: 0 se minor e 1 se major
-speechiness: [0,1]
-acousticness: [0,1]
-instrumentalness: [0,1]
-liveness:[0,1]
-valence: [0,1]
-tempo: BPM
-time_signature
-*/
-double propriedade_likeliness(p_Propriedades media_playlist, p_Propriedades propriedades_musica);
 
+double propriedade_likeliness(p_Propriedades media_playlist, p_Propriedades propriedades_musica)
+{
+    return sqrt(pow(propriedades_musica->acousticness - media_playlist->acousticness,2)+
+                pow(propriedades_musica->danceability - media_playlist->danceability,2)+
+                pow(propriedades_musica->energy - media_playlist->energy,2)+
+                pow(propriedades_musica->instrumentalness - media_playlist->instrumentalness,2)+
+                pow(propriedades_musica->liveness - media_playlist->liveness,2)+
+                pow(propriedades_musica->valence - media_playlist->valence,2)+
+                pow(propriedades_musica->mode - media_playlist->mode,2)+
+                pow(propriedades_musica->speechiness - media_playlist->speechiness,2));
+}
 
-//p_Propriedades propriedade_media_playlist(p_Musica *vet_musicas, int qtd_musicas);
+p_Propriedades propriedade_media_playlist(p_Propriedades *vet_propriedades, int qtd_musicas)
+{
+    int i;
+    p_Propriedades media = propriedades_cria();
 
+    for(i=0;i<qtd_musicas;i++)
+    {
+        media->acousticness += vet_propriedades[i]->acousticness;
+        media->danceability += vet_propriedades[i]->danceability;
+        media->energy += vet_propriedades[i]->energy;
+        media->instrumentalness += vet_propriedades[i]->instrumentalness;
+        media->key += vet_propriedades[i]->key;
+        media->liveness += vet_propriedades[i]->liveness;
+        media->loudness += vet_propriedades[i]->loudness;
+        media->mode += vet_propriedades[i]->mode;
+        media->speechiness += vet_propriedades[i]->speechiness;
+        media->tempo += vet_propriedades[i]->tempo;
+        media->time_signature += vet_propriedades[i]->time_signature;
+        media->valence += vet_propriedades[i]->valence;
+    }
+
+    media->acousticness /= qtd_musicas;
+    media->danceability /= qtd_musicas;
+    media->energy /= qtd_musicas;
+    media->instrumentalness /= qtd_musicas;
+    media->key /= qtd_musicas;
+    media->liveness /= qtd_musicas;
+    media->loudness /= qtd_musicas;
+    media->mode /= qtd_musicas;
+    media->speechiness /= qtd_musicas;
+    media->tempo /= qtd_musicas;
+    media->time_signature /= qtd_musicas;
+    media->valence /= qtd_musicas;
+
+    return media;
+}

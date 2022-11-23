@@ -63,7 +63,7 @@ void musica_le(p_Musica musica, char *linha)
     char *holder, *holder_2, *holder_artista_nome, *holder_artista_id;
     int i=0;
 
-    //=> Parte de atribuicao do id da musica <=
+    //--> Parte de atribuicao do id da musica <=
     i=0;
     holder = strtok_r(linha,";",&linha);
     
@@ -74,7 +74,7 @@ void musica_le(p_Musica musica, char *linha)
     }
     musica->id[i]='\0';
 
-    //=> Parte de atribuicao do nome da musica <=
+    //--> Parte de atribuicao do nome da musica <=
     i=0;
     holder = strtok_r(linha,";",&linha);
    
@@ -94,16 +94,16 @@ void musica_le(p_Musica musica, char *linha)
 
     musica->nome[contador_chars] = '\0';
 
-    //=> Parte de atribuicao da popularidade da musica <=
+    //--> Parte de atribuicao da popularidade da musica <=
     musica->popularidade = atoi(strtok_r(linha,";",&linha));
     
-    //=> Parte de atribuicao da duracao da musica <=
+    //--> Parte de atribuicao da duracao da musica <=
     musica->duracao_ms = atoi(strtok_r(linha,";",&linha));
     
-    //=> Parte de atribuicao do indicador de conteudo explicito da musica <=
+    //--> Parte de atribuicao do indicador de conteudo explicito da musica <=
     musica->explicito = atoi(strtok_r(linha,";",&linha));
     
-    //=> Parte de atribuicao dos nomes e ids de artistas nos seus respectivos vets da musica <=
+    //--> Parte de atribuicao dos nomes e ids de artistas nos seus respectivos vets da musica <=
     i=0;
     holder = strtok_r(linha,";",&linha);
     holder_2 = strtok_r(linha,";",&linha);
@@ -150,7 +150,7 @@ void musica_le(p_Musica musica, char *linha)
 
     }
 
-    //=> Atribuicao da data de lancamento <=
+    //--> Atribuicao da data de lancamento <=
     i=0;
     holder = strtok_r(linha,";",&linha);
 
@@ -162,7 +162,7 @@ void musica_le(p_Musica musica, char *linha)
     
     musica->data_lancamento[i]='\0';
 
-    //=> Atribuicao das propriedades <=
+    //--> Atribuicao das propriedades <=
     propriedades_le(musica->propriedades, linha);
 
 }
@@ -220,25 +220,25 @@ void musica_imprime_informacoes(p_Musica musica, int id)
     printf("|######### BUSCA DE MUSICA POR ID #########\n");
     printf("|##########################################\n");
     printf("|#\n|# Informacoes da musica na posicao %d no vetor: \n", id);
-    printf("|#   => Id: %s\n|#   =>Nome: %s\n|#   =>Popularidade: %d\n", musica->id, musica->nome, musica->popularidade);
+    printf("|#   --> Id: %s\n|#   -->Nome: %s\n|#   -->Popularidade: %d\n", musica->id, musica->nome, musica->popularidade);
 
     // Transforma a duracao em ms para minutos:segundos
     int minutos = (int)(musica->duracao_ms/60000);
     int segundos = (int)(musica->duracao_ms/1000)/*Isso da no TOTAL de segundos*/ - minutos*60 /*conversao de minutos para segundos*/;
-    printf("|#   => Duracao: %d Minutos e %d segundos\n", minutos,segundos);
+    printf("|#   --> Duracao: %d Minutos e %d segundos\n", minutos,segundos);
 
     // Verifica se eh explicito ou nao e imprime uma string (sim/nao)
     if(musica->explicito==0)
     {
-        printf("|#   => Explicito: Nao\n");
+        printf("|#   --> Explicito: Nao\n");
     }
     else
     {
-        printf("|#   => Explicito: Sim\n");
+        printf("|#   --> Explicito: Sim\n");
     }
 
     // Imprimindo data
-    printf("|#   => Data de lancamento: %s\n", musica->data_lancamento);
+    printf("|#   --> Data de lancamento: %s\n", musica->data_lancamento);
 
     // Artistas vao ser imprimidos separadamente
 }
@@ -246,7 +246,7 @@ void musica_imprime_informacoes(p_Musica musica, int id)
 void musica_imprime_artista_inexistente(p_Musica musica,int index)
 {
     printf("|#   %s\n",musica->vet_art_nome[index]);
-    printf("|#      => Nenhuma informacao foi encontrada sobre esse artista :(\n");
+    printf("|#      --> Nenhuma informacao foi encontrada sobre esse artista :(\n");
 }
 
 int musica_retorna_id_artistas(p_Musica musica, char ***artistas_id_out)
@@ -295,6 +295,6 @@ void musica_destroi(p_Musica musica)
 
 
 
-/*p_Propriedades musica_propriedade_get(p_Musica musica){
+p_Propriedades musica_retorna_propriedade(p_Musica musica){
     return musica->propriedades;
-}*/
+}

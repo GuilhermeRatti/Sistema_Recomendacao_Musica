@@ -34,7 +34,7 @@ void arquivo_salvar_playlist_bin(char path[]);
 *
 *    Nao retorna nem printa nada
 */
-void spotify_busca_musica_titulo(p_Spotify spotify, char *str);
+void spotify_busca_musica_titulo(p_Spotify spotify);
 
 
 /*
@@ -53,6 +53,8 @@ void spotify_playlist_listar_uma(p_Spotify spotify);
 void spotify_playlist_adicionar_musica(p_Spotify spotify);
 
 void spotify_gerar_relatorio(p_Spotify spotify);
+
+void spotify_recomendar_musicas(p_Spotify spotify);
 
 void spotify_destroi(p_Spotify spotify);
 
