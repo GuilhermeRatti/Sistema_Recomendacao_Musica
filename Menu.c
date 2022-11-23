@@ -13,39 +13,39 @@ enum OPCOES
     ADICIONAR_MSC_PLAYLIST = 6,
     RECOMENDAR_MUSICA = 7,
     RELATORIO = 8,
-    //FINALIZAR JA FOI DECLARADO COMO ZERO ANTERIORMENTE NO SPOTIFY
+    // FINALIZAR JA FOI DECLARADO COMO ZERO ANTERIORMENTE NO SPOTIFY
 };
 
 int menu_show_options(p_Spotify spotify)
 {
-    int opt=0;
+    int opt = 0;
 
     system("clear");
 
     printf("=====================================================\n                       Spotify\n=====================================================\n\n");
 
     printf("%s%s%s%s%s%s%s%s%s",
-            "  1 - Buscar musica\n",
-            "  2 - Listar uma musica\n",
-            "  3 - Criar uma playlist\n",
-            "  4 - Listar playlists\n",
-            "  5 - Listar uma playlist\n",
-            "  6 - Adicionar uma musica na playlist\n",
-            "  7 - Recomendar musicas parecidas com uma playlist\n",
-            "  8 - Gerar Relatorio\n",
-            "  0 - Finalizar o programa\n\n");
+           "  1 - Buscar musica\n",
+           "  2 - Listar uma musica\n",
+           "  3 - Criar uma playlist\n",
+           "  4 - Listar playlists\n",
+           "  5 - Listar uma playlist\n",
+           "  6 - Adicionar uma musica na playlist\n",
+           "  7 - Recomendar musicas parecidas com uma playlist\n",
+           "  8 - Gerar Relatorio\n",
+           "  0 - Finalizar o programa\n\n");
 
     printf("Escolha uma das opcoes: ");
     scanf("%d", &opt);
 
     system("clear");
 
-    if(opt==BUSCAR_MUSICA)
+    if (opt == BUSCAR_MUSICA)
     {
         menu_buscar_musica(spotify);
         return 1;
     }
-    else if(opt == LISTAR_MUSICA)
+    else if (opt == LISTAR_MUSICA)
     {
         menu_lista_musica(spotify);
         return 1;
@@ -70,7 +70,7 @@ int menu_show_options(p_Spotify spotify)
         menu_playlist_adicionar_musica(spotify);
         return 1;
     }
-    else if(opt == RECOMENDAR_MUSICA)
+    else if (opt == RECOMENDAR_MUSICA)
     {
         menu_recomendar(spotify);
         return 1;
@@ -96,11 +96,9 @@ void menu_lista_musica(p_Spotify spotify)
     int id_no_vet;
 
     printf("Digite o indice da musica desejada: ");
-    scanf("%d",&id_no_vet);
+    scanf("%d", &id_no_vet);
 
-
-
-    spotify_lista_musica(spotify,id_no_vet);
+    spotify_lista_musica(spotify, id_no_vet);
 }
 
 void menu_playlist_cria(p_Spotify spotify)

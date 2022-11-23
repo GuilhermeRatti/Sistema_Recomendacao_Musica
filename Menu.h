@@ -3,11 +3,11 @@
 #include "Spotify.h"
 
 /************************************************************
-*    Funcao que lista as opcoes e executa cada uma delas
-*
-*    Retorna 0 (FINALIZAR) se foi escolido a opcao finalizar
-*    Retorna 1 (CONTINUAR) para qualquer outra opcao
-*************************************************************/
+ *    Funcao que lista as opcoes e executa cada uma delas
+ *
+ *    Retorna 0 (FINALIZAR) se foi escolido a opcao finalizar
+ *    Retorna 1 (CONTINUAR) para qualquer outra opcao
+ *************************************************************/
 int menu_show_options(p_Spotify spotify);
 
 void menu_buscar_musica(p_Spotify spotify);
