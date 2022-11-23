@@ -247,6 +247,11 @@ void playlist_gerar_relatorio_musicas(p_Playlist *vet_playlists, int playlists_q
                 segunda_maior_aparicao = primeira_maior_aparicao;
                 primeira_maior_aparicao = musicas_aparicoes[i];
             }
+            else if (segunda_maior_aparicao < musicas_aparicoes[i] && primeira_maior_aparicao != musicas_aparicoes[i])
+            {
+                segunda_maior_aparicao = musicas_aparicoes[i];
+            }
+            
         }
 
         fprintf(relatorio_musicas, "==========================================Relatorio das Musicas==========================================\n\n");
@@ -350,6 +355,10 @@ void playlist_gerar_relatorio_artistas(p_Playlist *vet_playlists, int playlists_
                 segunda_maior_aparicao = primeira_maior_aparicao;
                 primeira_maior_aparicao = artistas_aparicoes[i];
             }
+            else if (segunda_maior_aparicao < artistas_aparicoes[i] && primeira_maior_aparicao != artistas_aparicoes[i])
+            {
+                segunda_maior_aparicao = artistas_aparicoes[i];
+            }
         }
 
         fprintf(relatorio_artistas, "==========================================Relatorio de Artistas==========================================\n\n");
@@ -412,7 +421,6 @@ void playlists_ler_bin(p_Playlist *playlist, FILE *arquivo_bin)
 
     (*playlist)->nome = (char *)calloc((*playlist)->nome_allc + 1, sizeof(char));
     fread((*playlist)->nome, sizeof(char), (*playlist)->nome_allc, arquivo_bin);
-    (*playlist)->nome[(*playlist)->nome_allc + 1] = '\0';
 
     fread(&((*playlist)->musicas_qtd), sizeof(int), 1, arquivo_bin);
 
