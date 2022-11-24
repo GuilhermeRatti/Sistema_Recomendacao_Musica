@@ -7,12 +7,6 @@
 
 typedef struct Spotify *p_Spotify;
 
-typedef enum
-{
-    CONTINUAR = 1,
-    FINALIZAR = 0
-} OPCOES_DO_MENU;
-
 p_Spotify spotify_cria();
 
 void spotify_inicia(p_Spotify spotify, char path[]);
@@ -52,18 +46,18 @@ O resto da escrita é feita repetindo uma função vinda de playlists N vezes
 void arquivo_salvar_playlist_bin(p_Spotify spotify, char path[]);
 
 /*
- *    Percorre o vetor de musicas da TAD spotify
- *    Chama a funcao musica_busca_titulo() para cada uma delas
- *
- *    Nao retorna nem printa nada
- */
+    Percorre o vetor de musicas da TAD spotify
+    Chama a funcao musica_busca_titulo() para cada uma delas
+
+    Nao retorna nem printa nada
+*/
 void spotify_busca_musica_titulo(p_Spotify spotify);
 
 /*
- *    Recebe um id (STRING) para printar a musica equivalente a aquele id
- *
- *    Chama funcoes para printar os atributos de musica e artista
- */
+    Recebe um id (STRING) para printar a musica equivalente a aquele id
+
+    Chama funcoes para printar os atributos de musica e artista
+*/
 void spotify_lista_musica(p_Spotify spotify, int id);
 
 void spotify_playlist_cria(p_Spotify spotify);

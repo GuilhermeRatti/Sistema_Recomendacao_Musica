@@ -49,16 +49,8 @@ void spotify_inicia(p_Spotify spotify, char path[])
     arquivo_ler_musica_csv(spotify, path);
     arquivo_ler_playlist_bin(spotify, path);
 
-    OPCOES_DO_MENU opt;
-    while (1)
-    {
-        opt = menu_show_options(spotify);
-
-        if (opt == FINALIZAR)
-        {
-            break;
-        }
-    }
+    while (menu_show_options(spotify))
+        continue;
 
     arquivo_salvar_playlist_bin(spotify, path);
 }

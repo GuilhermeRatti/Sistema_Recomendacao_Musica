@@ -13,7 +13,7 @@ enum OPCOES
     ADICIONAR_MSC_PLAYLIST = 6,
     RECOMENDAR_MUSICA = 7,
     RELATORIO = 8,
-    // FINALIZAR JA FOI DECLARADO COMO ZERO ANTERIORMENTE NO SPOTIFY
+    FINALIZAR = 0,
 };
 
 int menu_show_options(p_Spotify spotify)
@@ -80,7 +80,7 @@ int menu_show_options(p_Spotify spotify)
         menu_gerar_relatorio(spotify);
         return 1;
     }
-    else
+    else if (opt == FINALIZAR)
     {
         return 0;
     }

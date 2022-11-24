@@ -3,37 +3,66 @@
 
 typedef struct Propriedades *p_Propriedades;
 
-/*
- *    Recebe como parametro dois ponteiros de propriedade
- *    Um sendo o ponteiro com a media das propriedades da playlist
- *    Outro sendo o ponteiro das propriedades da musica em questao
- *
- *    Retorna um DOUBLE sendo a DISTANCIA EUCLIDIANA
- */
 
-// Inicialização do ponteiro da estrutura propriedade
+
+/*
+    Nao recebe nada
+
+    Da callocs em todos os atributos
+
+    Retorna um PONTEIRO de propriedades inicializados
+*/
 p_Propriedades propriedades_cria();
 
-// Leitura das propriedades atraves de uma string
+
+/*
+    Recebe como parametro um ponteiro de propriedades vazio 
+    e um ponteiro de char sendo a linha a ser lida
+
+    Fragmenta a linha da e vai convertendo as informacoes nela
+    e as salvando na struct propriedade que estava vazia
+
+    Retorna o PONTEIRO da struct preenchida
+*/
 void propriedades_le(p_Propriedades props, char *linha);
 
-// Impressão das propriedades
+
+/*
+    Recebe como parametro ponteiro de propriedades
+
+    Imprime informacoes da struct
+*/
 void propriedades_imprime(p_Propriedades props);
 
-// Liberacao do ponteiro de propriedades
+
+/*
+    Recebe como parametro ponteiro de propriedades
+
+    Da free no ponteiro recebido
+*/
 void propriedades_destroi(p_Propriedades props);
 
-/**************************************************************************************************************************************
- *    Calculo da distancia euclidiana entre a media das propriedades de uma playlist e as propriedades de uma musica.
- *
- *    Retorna um DOUBLE sendo essa a distancia euclidiana entre a playlist e a musica.
- ***************************************************************************************************************************************/
+
+/*
+    Recebe como parametro dois ponteiros de propriedade
+
+    Essa funcao tem somente um return sendo o return da distancia euclidiana entre as duas propriedades
+
+    Retorna um DOUBLE sendo a DISTANCIA EUCLIDIANA
+*/
 double propriedade_likeliness(p_Propriedades media_playlist, p_Propriedades propriedades_musica);
 
-/**************************************************************************************************************************************
- *    Recebe um vetor de propriedades das musicas vindo de uma playlist junto da quantidade de musicas nesse vetor.
- *    Retorna um ponteiro de propriedades que contem a media de cada propriedade dentre as musicas.
- ***************************************************************************************************************************************/
+
+/*
+    Recebe como parametro um vetor de propriedades
+    das musicas da playlist e um inteiro de quantidade de musicas
+
+    Essa funcao executa um for loop para passar pelo vetor de propriedades
+    e soma cada atributo, acumulando-os em uma nova struct propriedades
+    Apos o for loop, divide todos os atributos dessa nova struct propriedades pela qtd de musicas
+
+    Retorna o PONTEIRO da nova struct propriedades armazenando a media das propriedades das musicas na playlist
+*/
 p_Propriedades propriedade_media_playlist(p_Propriedades *vet_propriedades, int qtd_musicas);
 
 #endif
