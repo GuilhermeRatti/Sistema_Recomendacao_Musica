@@ -84,6 +84,11 @@ int menu_show_options(p_Spotify spotify)
     {
         return 0;
     }
+    else
+    {
+        printf("Numero inváldo!\n");
+        return 1;
+    }
 }
 
 void menu_buscar_musica(p_Spotify spotify)
@@ -96,6 +101,7 @@ void menu_lista_musica(p_Spotify spotify)
     int id_no_vet;
 
     printf("Digite o indice da musica desejada: ");
+    fgetc(stdin);
     scanf("%d", &id_no_vet);
 
     spotify_lista_musica(spotify, id_no_vet);

@@ -47,7 +47,7 @@ int musica_retorna_nome_artistas(p_Musica musica, char ***artistas_nome_out);
     no arquivo de artistas.csv, ou seja, a unica informacao disponivel dele eh o nome e o id,
     que estao armazenadas na musica
 
-    EXEMṔLO: Musica de indice 468778 do arquivo tracks_full.csv
+    EXEMPLO: Musica de indice 468778 do arquivo tracks_full.csv
 */
 void musica_imprime_artista_inexistente(p_Musica musica, int index);
 
@@ -79,6 +79,7 @@ int musica_retorna_qtd_artistas(p_Musica musica);
  */
 p_Propriedades musica_retorna_propriedade(p_Musica musica);
 
+//Libera alocacoes dinamicas de memoria em musica
 void musica_destroi(p_Musica musica);
 
 #endif

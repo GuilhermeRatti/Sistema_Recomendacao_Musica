@@ -26,13 +26,16 @@ void artista_le(p_Artista artista, char *linha);
 */
 int artista_compara_id(p_Artista artista, char *id, int *achou);
 
-/*************************************************
+/*
  *    Funcao que imprime os atributos dos artistas
  *
  *    Nao retorna nada
- **************************************************/
+ */
 void artista_imprime(p_Artista artista);
 
+/*
+    Funcao que libera as alocacoes de memoria dinamica em artista
+*/
 void artista_destroi(p_Artista artista);
 
 #endif

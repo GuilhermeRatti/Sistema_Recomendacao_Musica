@@ -98,6 +98,9 @@ void arquivo_ler_musica_csv(p_Spotify spotify, char path[])
     }
 
     char linha[3000];
+    
+    //consumo da primeira linha de identificador de colunas (não é uma musica)
+    fscanf(msccsv, "%[^\n]\n", linha);
 
     while (fscanf(msccsv, "%[^\n]\n", linha) != EOF)
     {
@@ -213,6 +216,8 @@ void spotify_busca_musica_titulo(p_Spotify spotify)
         scanf("%c", &ch);
     }
 
+    printf("\nMusicas que contem '%s' em seu nome:\n\n", str);
+
     int i;
     // Loop que vai passar por todas as musicas do spotify
     for (i = 0; i < spotify->msc_qtd; i++)
@@ -226,20 +231,20 @@ void spotify_busca_musica_titulo(p_Spotify spotify)
     scanf("%*[^\n]%*c");
 }
 
-void spotify_lista_musica(p_Spotify spotify, int id)
+void spotify_lista_musica(p_Spotify spotify, int indx)
 {
-    if (id < 0 || id >= spotify->msc_qtd)
-        printf("Entrada de indice invalida!");
+    if (indx < 0 || indx >= spotify->msc_qtd)
+        printf("Entrada de indice invalindxa!");
     else
     {
         // Primeiro imprime os atributos da musica (com excessao do artista, que sera feito separadamente)
-        musica_imprime_informacoes(spotify->vet_musicas[id], id);
+        musica_imprime_informacoes(spotify->vet_musicas[indx], indx);
 
         char **artistas_out; // Cria um um vetor de string que vai ser mudado por referencia para
                              // receber o vetor de ids dos artistas das musicas
 
         int qtd_artistas;
-        qtd_artistas = musica_retorna_id_artistas(spotify->vet_musicas[id], &artistas_out);
+        qtd_artistas = musica_retorna_id_artistas(spotify->vet_musicas[indx], &artistas_out);
 
         int i = 0, j;
         int achou = 0; // variavel booleana (0 ou 1) para cobrir casos em que o artista nao exista no artists.csv
@@ -249,7 +254,7 @@ void spotify_lista_musica(p_Spotify spotify, int id)
         {
             j = 0;
             achou = 0;
-            // Loop que vai ficar rodando no vetor que contem todos os artistar ate achar o artista que tem aquele id
+            // Loop que vai ficar rodando no vetor que contem todos os artistar ate achar o artista que tem aquele indx
             while (!(artista_compara_id(spotify->vet_artistas[j], artistas_out[i], &achou)))
             {
                 if (j == (spotify->art_qtd - 1))
@@ -259,18 +264,34 @@ void spotify_lista_musica(p_Spotify spotify, int id)
             if (achou)
                 artista_imprime(spotify->vet_artistas[j]);
             else
-                musica_imprime_artista_inexistente(spotify->vet_musicas[id], i);
+                musica_imprime_artista_inexistente(spotify->vet_musicas[indx], i);
         }
 
         if (i == 0)
         {
             printf("Essa musica nao possui nenhum artista registrado :/\n");
         }
+
+        char tocar_url='0';
+        printf("\nDeseja tocar a musica a musica? (1 para sim | 0 para nao): ");
+
+        scanf("\n%c", &tocar_url);
+
+        if (tocar_url != '0')
+        {
+            char musica_url[63];
+            sprintf(musica_url, "firefox https://open.spotify.com/track/%s", musica_retorna_id(spotify->vet_musicas[indx]));
+            system(musica_url);
+
+            printf("\nPressione enter para voltar para o menu principal!");
+            fgetc(stdin);
+            scanf("%*[^\n]%*c");
+        }
     }
 
-    printf("\nPressione enter para voltar para o menu principal!");
-    fgetc(stdin);
-    scanf("%*[^\n]%*c");
+
+
+    
 }
 
 void spotify_playlist_cria(p_Spotify spotify)
@@ -412,7 +433,7 @@ void spotify_recomendar_musicas(p_Spotify spotify)
             }
         }
 
-        printf("Musicas recomendadas:\n\n");
+        printf("\nMusicas recomendadas:\n\n");
         char **nome_out;
         int qtd_artistas_musica;
         for (i = 0; i < qtd_recomendacoes; i++)

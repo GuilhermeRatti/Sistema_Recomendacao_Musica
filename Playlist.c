@@ -16,7 +16,6 @@ struct Playlist
     int musicas_qtd;
 };
 
-// Solicita o nome de uma playlist e a adiciona em um array.
 p_Playlist playlist_cria()
 {
     p_Playlist plist = (p_Playlist)calloc(1, sizeof(struct Playlist));
@@ -52,10 +51,7 @@ p_Playlist playlist_cria()
 
     return plist;
 }
-/*
-Exibe os dados de todas as playlists, uma por linha. Para cada playlist, deve ser exibido
-o índice da playlist no array, o nome da playlist e o número de músicas que ela possui.
-*/
+
 void playlist_listar_todas(p_Playlist *vetor_playlists, int playlists_qtd)
 {
     int i;
@@ -78,10 +74,6 @@ void playlist_listar_todas(p_Playlist *vetor_playlists, int playlists_qtd)
     scanf("%*[^\n]%*c");
 }
 
-/*
-Solicita que o usuário digite o indice da playlist e apresenta na
-tela o nome da playlist e os títulos das músicas que ela possui.
-*/
 void playlist_listar_uma(p_Playlist *vetor_playlists, int playlists_qtd, p_Musica *vetor_musicas)
 {
     int i = -1, j = 0, indx;
@@ -200,12 +192,18 @@ void playlist_gerar_relatorio_musicas(p_Playlist *vet_playlists, int playlists_q
     int *musicas_indx = calloc(0, sizeof(int));
     int *musicas_aparicoes = calloc(0, sizeof(int));
 
+    /*
+    organiza vetores que funcionam em paralelo:
+    musicas_aparicoes[n] representa a quantidade de vezes que o musicas_indx[n] aparece nas playlists
+    */
     for (i = 0; i < playlists_qtd; i++)
     {
         for (j = 0; j < vet_playlists[i]->musicas_qtd; j++)
         {
             flag_adicionada = 0;
 
+            // verifica se a musica atual da playlist esta contida no vetor de indxs
+            // se estiver aumenta o numero correspondente no vetor de aparicoes
             for (k = 0; k < musicas_relatorio_qtd; k++)
             {
                 if (vet_playlists[i]->vet_musicas[j] == musicas_indx[k])
@@ -216,6 +214,7 @@ void playlist_gerar_relatorio_musicas(p_Playlist *vet_playlists, int playlists_q
                 }
             }
 
+            // se ela nao estiver adicionada no vetor de indxs ela é adicionada nesse vetor
             if (!flag_adicionada)
             {
                 musicas_relatorio_qtd++;
@@ -234,12 +233,19 @@ void playlist_gerar_relatorio_musicas(p_Playlist *vet_playlists, int playlists_q
     }
     else
     {
+        // parte da escrita
+
         FILE *relatorio_musicas = fopen("Relatorio_Playlists_Musicas.txt", "w");
 
         int primeira_maior_aparicao = 0;
         int segunda_maior_aparicao = 0;
         int proxima_maior_aparicao = 0;
 
+        /*
+        organizacao da ordem de impressao:
+
+        se verifica a menor e a segunda menor aparicao no vetor de aparicoes e salva essas informacoes
+        */
         for (i = 0; i < musicas_relatorio_qtd; i++)
         {
             if (primeira_maior_aparicao < musicas_aparicoes[i])
@@ -251,11 +257,16 @@ void playlist_gerar_relatorio_musicas(p_Playlist *vet_playlists, int playlists_q
             {
                 segunda_maior_aparicao = musicas_aparicoes[i];
             }
-            
         }
 
         fprintf(relatorio_musicas, "==========================================Relatorio das Musicas==========================================\n\n");
 
+        /*
+        Realiza a escrita dos nomes das musicas que mais aparecem nas playlists e
+        alterando o proximo maior valor enquanto imprime o valor atual.
+
+        Finaliza qundo o proximo maior valor para impressao for 0
+        */
         do
         {
             proxima_maior_aparicao = segunda_maior_aparicao;
@@ -295,22 +306,27 @@ void playlist_gerar_relatorio_artistas(p_Playlist *vet_playlists, int playlists_
     char **vet_playlist_artistas_ids;
     char **vet_playlist_artistas_nomes;
 
-    // para cada playlist
+    /*
+    organiza vetores que funcionam em paralelo:
+    artistas_aparicoes[n] representa a quantidade de vezes que o vetor
+    artistas_id[n] e artistas_nome[n] aparece nas playlists
+    */
     for (i = 0; i < playlists_qtd; i++)
     {
-        // para cada musica na playlist
         for (j = 0; j < vet_playlists[i]->musicas_qtd; j++)
         {
             musica_atual_id = vet_playlists[i]->vet_musicas[j];
-
+            // para cada musica na playlist se recebe a quantidade de artistas presentes,
+            // o vetor de ids desses artistas junto do vetor de nomes deses artistas
             playlist_musica_artistas_qtd = musica_retorna_id_artistas(vet_musicas_spotify[musica_atual_id], &vet_playlist_artistas_ids);
             musica_retorna_nome_artistas(vet_musicas_spotify[musica_atual_id], &vet_playlist_artistas_nomes);
 
-            // para cada artista nas musicas da playlist
             for (k = 0; k < playlist_musica_artistas_qtd; k++)
             {
                 flag_adicionada = 0;
 
+                // verifica se o id do artista atual da musica atual da playlists esta contida no vetor de indxs
+                // se estiver, aumenta o numero correspondente no vetor de aparicoes
                 for (l = 0; l < artistas_relatorio_qtd; l++)
                 {
                     if (strcmp(vet_playlist_artistas_ids[k], artistas_id[l]) == 0)
@@ -321,6 +337,7 @@ void playlist_gerar_relatorio_artistas(p_Playlist *vet_playlists, int playlists_
                     }
                 }
 
+                // se o artista nao estiver adicionado no vetor de ids e nomes ele é adicionado nesse vetor
                 if (!flag_adicionada)
                 {
                     artistas_relatorio_qtd++;
@@ -342,12 +359,19 @@ void playlist_gerar_relatorio_artistas(p_Playlist *vet_playlists, int playlists_
     }
     else
     {
+        // parte da escrita
+
         FILE *relatorio_artistas = fopen("Relatorio_Playlists_Artistas.txt", "w");
 
         int primeira_maior_aparicao = 0;
         int segunda_maior_aparicao = 0;
         int proxima_maior_aparicao = 0;
 
+        /*
+        organizacao da ordem de impressao:
+
+        se verifica a menor e a segunda menor aparicao no vetor de aparicoes e salva essas informacoes
+        */
         for (i = 0; i < artistas_relatorio_qtd; i++)
         {
             if (primeira_maior_aparicao < artistas_aparicoes[i])
@@ -363,6 +387,12 @@ void playlist_gerar_relatorio_artistas(p_Playlist *vet_playlists, int playlists_
 
         fprintf(relatorio_artistas, "==========================================Relatorio de Artistas==========================================\n\n");
 
+        /*
+        Realiza a escrita dos nomes e ids dos artistas que mais aparecem nas playlists e
+        alterando o proximo maior valor enquanto imprime o valor atual.
+
+        Finaliza qundo o proximo maior valor para impressao for 0
+        */
         do
         {
             proxima_maior_aparicao = segunda_maior_aparicao;

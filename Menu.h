@@ -17,19 +17,27 @@
 */
 int menu_show_options(p_Spotify spotify);
 
+//Redireciona a chamada para a funcao de buscar musica em spotify
 void menu_buscar_musica(p_Spotify spotify);
 
+//Redireciona a chamada para a funcao de lista musica em spotify
 void menu_lista_musica(p_Spotify spotify);
 
+//Redireciona a chamada para a funcao de playlist cria em spotify
 void menu_playlist_cria(p_Spotify spotify);
 
+//Redireciona a chamada para a funcao de playlist listar todas em spotify
 void menu_playlist_listar_todas(p_Spotify spotify);
 
+//Redireciona a chamada para a funcao de playlist listar uma em spotify
 void menu_playlist_listar_uma(p_Spotify spotify);
 
+//Redireciona a chamada para a funcao de playlist adicionar musica em spotify
 void menu_playlist_adicionar_musica(p_Spotify spotify);
 
+//Redireciona a chamada para a funcao de gerar relatorio em spotify
 void menu_gerar_relatorio(p_Spotify spotify);
 
+//Redireciona a chamada para a funcao de recomendar musicas em spotify
 void menu_recomendar(p_Spotify spotify);
 #endif
