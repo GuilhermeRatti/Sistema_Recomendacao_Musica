@@ -58,7 +58,7 @@ void spotify_inicia(p_Spotify spotify, char path[])
 void arquivo_ler_artista_csv(p_Spotify spotify, char path[])
 {
     char caminho[1000];
-    sprintf(caminho, "%s/artists_full.csv", path);
+    sprintf(caminho, "%s/artists_2.csv", path);
     FILE *artcsv = fopen(caminho, "r");
 
     if (!artcsv)
@@ -67,7 +67,10 @@ void arquivo_ler_artista_csv(p_Spotify spotify, char path[])
         exit(1);
     }
 
-    char linha[250];
+    char linha[250]; // nos tentamos usar alocacao dinamica pra linha, pq aparentemente tem linhas q passam de 2000 caracteres (nas tracks)...
+                      // porem isso deixava o codigo MUITO mais lento, consideravelmente... o tempo para um make val de arquivos full ia pra 20 minutos de processamento
+                      // nao vale a pena, porque pra fazer dinamico tem que ler char por char, ou seja, cada uma das 500000 linhas teria pelo menos 400 repeticoes de loop (contanto os reallocs e inicializacoes de chars de strings como \0 qnd da realloc)
+                      // entao optamos por um alocamento estatico msm, ja que essa variavel linha vai ser descartada assim que a leitura de csv terminar
 
     while (fscanf(artcsv, "%[^\n]\n", linha) != EOF)
     {
@@ -80,6 +83,7 @@ void arquivo_ler_artista_csv(p_Spotify spotify, char path[])
         spotify->vet_artistas[spotify->art_qtd] = artista_cria();
         artista_le(spotify->vet_artistas[spotify->art_qtd], linha);
         spotify->art_qtd++;
+
     }
 
     fclose(artcsv);
@@ -88,7 +92,7 @@ void arquivo_ler_artista_csv(p_Spotify spotify, char path[])
 void arquivo_ler_musica_csv(p_Spotify spotify, char path[])
 {
     char caminho[1000];
-    sprintf(caminho, "%s/tracks_full.csv", path);
+    sprintf(caminho, "%s/tracks_2.csv", path);
     FILE *msccsv = fopen(caminho, "r");
 
     if (!msccsv)
@@ -97,14 +101,17 @@ void arquivo_ler_musica_csv(p_Spotify spotify, char path[])
         exit(1);
     }
 
-    char linha[3000];
+    char linha[3000]; // nos tentamos usar alocacao dinamica pra linha, pq aparentemente tem linhas q passam de 2000 caracteres...
+                      // porem isso deixava o codigo MUITO mais lento, consideravelmente... o tempo para um make val de arquivos full ia pra 20 minutos de processamento
+                      // nao vale a pena, porque pra fazer dinamico tem que ler char por char, ou seja, cada uma das 500000 linhas teria pelo menos 400 repeticoes de loop (contanto os reallocs e inicializacoes de chars de strings como \0 qnd da realloc)
+                      // entao optamos por um alocamento estatico msm, ja que essa variavel linha vai ser descartada assim que a leitura de csv terminar
     
     //consumo da primeira linha de identificador de colunas (não é uma musica)
     fscanf(msccsv, "%[^\n]\n", linha);
 
     while (fscanf(msccsv, "%[^\n]\n", linha) != EOF)
     {
-        if (spotify->msc_qtd == spotify->msc_allc)
+       if (spotify->msc_qtd == spotify->msc_allc)
         {
             spotify->msc_allc *= 2;
             spotify->vet_musicas = (p_Musica *)realloc(spotify->vet_musicas,
@@ -133,7 +140,7 @@ void arquivo_ler_playlist_bin(p_Spotify spotify, char path[])
     char caminho[1000];
     int numero_playlists, i;
 
-    sprintf(caminho, "%s/playlists.bin", path);
+    sprintf(caminho, "playlists.bin");
 
     FILE *arquivo_bin = fopen(caminho, "rb");
 
@@ -163,7 +170,7 @@ void arquivo_salvar_playlist_bin(p_Spotify spotify, char path[])
     {
         char caminho[1000];
 
-        sprintf(caminho, "%s/playlists.bin", path);
+        sprintf(caminho, "playlists.bin");
 
         FILE *arquivo_bin = fopen(caminho, "wb");
 
@@ -288,10 +295,6 @@ void spotify_lista_musica(p_Spotify spotify, int indx)
             scanf("%*[^\n]%*c");
         }
     }
-
-
-
-    
 }
 
 void spotify_playlist_cria(p_Spotify spotify)
