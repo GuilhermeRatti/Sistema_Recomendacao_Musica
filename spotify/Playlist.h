@@ -74,6 +74,8 @@ int playlist_verifica_se_esta_incluso(p_Playlist playlist, int indice);
 
 /*
 Retorna media das propriedades das musicas contidas em uma playlist
+
+Se retornar um ponteiro NULL eh porque a playlist nao possui musicas
 */
 p_Propriedades playlist_retorna_media_propriedades(p_Playlist playlist, p_Musica *vet_musicas);
 

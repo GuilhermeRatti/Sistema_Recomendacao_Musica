@@ -469,6 +469,9 @@ void playlists_salva_bin(p_Playlist playlist, FILE *arquivo_bin)
 
 p_Propriedades playlist_retorna_media_propriedades(p_Playlist playlist, p_Musica *vet_musica)
 {
+    if(playlist->musicas_qtd==0)
+        return NULL;
+
     p_Propriedades vet_propriedades[playlist->musicas_qtd];
     int i;
     for (i = 0; i < playlist->musicas_qtd; i++)

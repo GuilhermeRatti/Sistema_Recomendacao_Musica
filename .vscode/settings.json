@@ -2,6 +2,7 @@
     "files.associations": {
         "propriedades.h": "c",
         "menu.h": "c",
-        "musica.h": "c"
+        "musica.h": "c",
+        "stdlib.h": "c"
     }
 }

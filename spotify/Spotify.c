@@ -58,7 +58,7 @@ void spotify_inicia(p_Spotify spotify, char path[])
 void arquivo_ler_artista_csv(p_Spotify spotify, char path[])
 {
     char caminho[1000];
-    sprintf(caminho, "%s/artists_2.csv", path);
+    sprintf(caminho, "%s/artists_full.csv", path);
     FILE *artcsv = fopen(caminho, "r");
 
     if (!artcsv)
@@ -92,7 +92,7 @@ void arquivo_ler_artista_csv(p_Spotify spotify, char path[])
 void arquivo_ler_musica_csv(p_Spotify spotify, char path[])
 {
     char caminho[1000];
-    sprintf(caminho, "%s/tracks_2.csv", path);
+    sprintf(caminho, "%s/tracks_full.csv", path);
     FILE *msccsv = fopen(caminho, "r");
 
     if (!msccsv)
@@ -356,7 +356,6 @@ void spotify_recomendar_musicas(p_Spotify spotify)
 
     else
     {
-
         int indx_playlist;
         printf("Informe o indice da playlist a ser analisada para realizar a recomendacao: ");
         scanf("%d", &indx_playlist);
@@ -382,6 +381,17 @@ void spotify_recomendar_musicas(p_Spotify spotify)
         }
 
         p_Propriedades med_playlist = playlist_retorna_media_propriedades(spotify->vet_playlists[indx_playlist], spotify->vet_musicas);
+
+        if(med_playlist==NULL)
+        {
+            printf("\nNao na musicas nessa playlist!\n");
+            printf("\nPressione enter para voltar para o menu principal!");
+            fgetc(stdin);
+            scanf("%*[^\n]%*c");
+            return;
+        }
+            
+
         p_Musica vet_musicas_selecionadas[qtd_recomendacoes], holder_msc; // holder eh uma variavel auxiliar que vai ajudar na ordenacao do vetor de musicas selecionadas
         double vet_distancias[qtd_recomendacoes], distancia, holder_dist;
 
